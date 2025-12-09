@@ -3,7 +3,7 @@ const titlePanel = document.querySelector('.title-cart-panel');
 const burgerLinks = document.querySelector("#burger-menu");
 const burgerOpen = document.getElementById("burger");
 const burgerClose = document.getElementById("burger-close");
-
+ const menuHomeBtn = document.getElementById('newsHomeBtn');
 document.addEventListener("DOMContentLoaded", mobileDesktopInit);
 window.addEventListener("resize", mobileDesktopInit);
 
@@ -29,8 +29,6 @@ function enableMobile() {
     const homeItemBtn = document.createElement('button');
     homeItemBtn.className = 'cpHomeBtn';
 
-    
-
     //For adding the elements during mobile viewport        
     if (!titlePanel.querySelector('.cpHomeBtn')) {
       titlePanel.prepend(homeItemBtn);
@@ -39,12 +37,19 @@ function enableMobile() {
       homeItemBtn.addEventListener('click', () =>{
       location.href = 'index.html';
     });
+    if(menuHomeBtn){
+      menuHomeBtn.addEventListener('click', () => {
+        location.href = 'index.html';
+      });
+    }
       burgerOpen.style.display = 'flex';
       titlePanel.append(burgerOpen);
       //Burger open button click event
       burgerOpen.onclick = () => {
       burgerOpen.style.display = 'none';  
       burgerLinks.classList.add("burger-links");
+     
+      //burgerLinks.append(burgerLinksFooter);
       coverPage.style.display = 'block';
       
       // Always prepend home button again (safe)
@@ -114,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         loginBtn.addEventListener('click', () =>{
             loginPage.classList.add('log-in');
             document.body.classList.add('no-scroll');
-
+            coverPage.style.display = 'flex';
         });
           }
          if(loginBtnMenu){
@@ -715,6 +720,9 @@ function backToTop(){
 
              
         burgerLinks.append(menuDiv);
+        const burgerLinkFooter = document.querySelector('.burger-links-hidden-footer');
+        burgerLinkFooter.classList.add('alright-reserve-burgerlinks-footer');
+        burgerLinks.appendChild(burgerLinkFooter);
 
         menuDiv.addEventListener('click', (e) => {
         const dropQuestionsBtn = e.target.closest('#drop-questions');
