@@ -46,12 +46,13 @@ function enableMobile() {
       titlePanel.append(burgerOpen);
       //Burger open button click event
       burgerOpen.onclick = () => {
+      if(cartContentEmpty.classList.contains('navActive') || loginPage.classList.contains('log-in')){
+        cartContentEmpty.classList.remove('navActive');
+        loginPage.classList.remove('log-in');
+      }
       burgerOpen.style.display = 'none';  
       burgerLinks.classList.add("burger-links");
-     
-      //burgerLinks.append(burgerLinksFooter);
       coverPage.style.display = 'block';
-      
       // Always prepend home button again (safe)
       titlePanel.prepend(homeItemBtn);
       // Add close button
@@ -103,7 +104,7 @@ function enableDesktop() {
 }
 
 const loginPage = document.getElementById('login-page');
-        const closeLoginPage = document.getElementById('close-login-page');
+const closeLoginPage = document.getElementById('close-login-page');
 document.addEventListener("DOMContentLoaded", () =>{
 
 

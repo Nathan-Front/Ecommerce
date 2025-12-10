@@ -331,16 +331,20 @@ document.addEventListener('DOMContentLoaded', () =>{
             upperHeaderCartTab.classList.add('mobile-header-menu-cart-tab');
             checkoutMenuPanel.prepend(upperHeaderCartTab);
         }
-    
         if(window.innerWidth <= 540){
             cartContentEmpty.style.zIndex = '99';
         }
-        
+        //Allows only one slide page at a time
+        if(burgerLinks.classList.contains('burger-links') || loginPage.classList.contains('log-in')){
+            burgerLinks.classList.remove('burger-links');
+            burgerClose.style.display = 'none'; 
+            burgerOpen.style.display = 'flex'; 
+            loginPage.classList.remove('log-in');
+        }       
     }else{
         cartContentEmpty.classList.remove('navActive');
         coverPage.style.display = 'none';
     }
-     
     });
     
     //When close cart button was clicked same with else condition above
