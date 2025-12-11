@@ -12,9 +12,9 @@ function addingToCart(name, productsToId) {
     let getIdAndSize = JSON.parse(sessionStorage.getItem('itemFromCart')) || [];
     //Check the name passed from onclick 1st parameter 
     let index = getIdAndSize.findIndex(item => item.name === name);
-    //Check if the there is such item. Index should start 0
+    //Check if the there is such item. Index should start 0. Also acts to warn if item is already added
     if (index !== -1) { 
-        alert("No such item");
+        alert("Item already in the cart");
     } else {
     //Get the click event with its 2nd parameter to be used and get the container where that button belong to                    
     const productItemId = productsToId.closest('.list-of-items');
@@ -36,7 +36,7 @@ function addingToCart(name, productsToId) {
         let itemCount = parseFloat(itemSelectedQty);
         //For counter of quantity for the selected item/product
         if(itemCount <= 0){
-            alert("Input quantity");
+            alert("Select quantity");
             return;          
         }else{
             let tPrice = Number((itemCount * iPrice).toFixed(2)); //Number remove the adding of 0 before each whole number and toFixed is to display 2 decimals only
@@ -201,39 +201,29 @@ function deleteItemFromSession(itemId){
 } 
 
 
-//For checkout button
+//To checkout payment
+document.addEventListener('DOMContentLoaded', () =>{
 const payment = document.getElementById('to-payment');
+if(!payment) return;
 payment.addEventListener('click', function(){
     let tPrice = 0;
     const itemCount = document.getElementById("added-to-cart");
     let totalCheckoutPrice = JSON.parse(sessionStorage.getItem('itemFromCart'));
+    if(totalCheckoutPrice === null || "" || totalCheckoutPrice.length === 0){
+        alert('No item in the cart'); 
+        return;
+    }
     totalCheckoutPrice.forEach(item =>{
         if(itemCount !== 0 || itemCount !== "")
         {
         tPrice += item.total;
         }
-
     });
-    //updateCartContent();
-    alert(`Total price: $${tPrice}`);
+    alert(`Total price: $${tPrice}`);  
+ });
  });
 
 function updateCartContent(itemId){
-    
-
-    /*
-    else if(window.innerWidth <= 540 && window.innerWidth > 430){
-    
-    if (upperHeaderCartTab.parentElement !== checkoutMenuPanel) {
-        checkoutMenuPanel.prepend(upperHeaderCartTab);
-    }
-
-    }else {
-        return true;
-    }*/
-
-
-
     let cartStore = JSON.parse(sessionStorage.getItem('itemFromCart'))||[];
     //To udate cart display
     if(cartStore.length === 0){   
@@ -387,6 +377,55 @@ document.querySelectorAll('button[data-target]').forEach(function (el){
         document.getElementById(el.getAttribute('data-target')).style.display = "flex";
     });
 }); 
+
+function upperSlideContentsBtn(){
+    const clotheCategory = document.getElementById('clothe-category');
+    const shoesCategory = document.getElementById('shoes-category');
+    const offerCategory = document.getElementById('offer-category');
+    const outdoorCategory = document.getElementById('outdoor-category');
+    const clotheDaily = document.getElementById('clothe-daily');
+    const shoesDaily = document.getElementById('shoes-daily');
+
+    document.addEventListener('DOMContentLoaded', () =>{
+    clotheCategory.addEventListener('click', () =>{
+        alert('Link to Clothes category page');
+    });
+    shoesCategory.addEventListener('click', () =>{
+        alert('Link to Shoes category page');
+    });
+    offerCategory.addEventListener('click', () =>{
+        alert('Link to Best Offer category page');
+    });
+    outdoorCategory.addEventListener('click', () =>{
+        alert('Link to Outdoor category page');
+    });
+    clotheDaily.addEventListener('click', () =>{
+        alert('Link to Clothes daily offer page');
+    });
+    shoesDaily.addEventListener('click', () =>{
+        alert('Link to Shoes daily offer page');
+    });
+    });
+}upperSlideContentsBtn();
+
+document.addEventListener('DOMContentLoaded', () =>{
+    let lowerPanelBtn = document.querySelectorAll('.best-offer-button');
+    lowerPanelBtn.forEach(function (Btn){
+        Btn.addEventListener('click', () =>{
+             alert('Link to ' + Btn.querySelector('span').textContent + ' page');
+        });
+    });
+
+    let lowerPanelCardLinks = document.querySelectorAll('.lower-panel-item-card-links');
+    lowerPanelCardLinks.forEach(function (aTag){
+        aTag.addEventListener('click', ()=>{
+            alert('Link to ' + aTag.textContent + ' page');
+        });
+    });
+})
+    
+
+
 
 /*
 let currentIndex = 0;

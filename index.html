@@ -15,7 +15,7 @@
             <h1>Notare</h1>
         </div>
         <div class="login-container">
-                <p><a href="">Sign in</a> or <a href="">Register</a></p>
+                <p><a id="sign-in">Sign in</a> or <a id="register">Register</a></p>
             </div>
         <div class="item-to-cart-checkout" id="check-out-cart">
             <img src="images/logo/pngwing.com.png" alt="">
@@ -34,7 +34,7 @@
             <li class="menu-buttons" id="newsMenuBtn3"><button>FAQs</button></li>
         </ul>
         <div class="burger-links-hidden-footer">
-                    <p>© Nov-2025, Ⓝ Netora, Jonathan P. Tindungan</p>
+                    <p>© Nov-2025, Ⓝ Notare, Jonathan P. Tindungan</p>
                     <a href=""><img src="images/category/hot items/facebook-svgrepo-com.svg" alt="Facebook"></a>
                     <a href=""><img src="images/category/hot items/instagram-rounded-border-svgrepo-com.svg" alt="Instagram"></a>
                     <a href=""><img src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
@@ -64,7 +64,7 @@
                     <p>Forgot <a href="">password?</a></p>
                 </div>
                 <div class="alright-reserve-acc-footer">
-                    <p>© Nov-2025, Ⓝ Netora, Jonathan P. Tindungan</p>
+                    <p>© Nov-2025, Ⓝ Notare, Jonathan P. Tindungan</p>
                     <a href=""><img src="images/category/hot items/facebook-svgrepo-com.svg" alt="Facebook"></a>
                     <a href=""><img src="images/category/hot items/instagram-rounded-border-svgrepo-com.svg" alt="Instagram"></a>
                     <a href=""><img src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
@@ -121,16 +121,16 @@
             </div>
             <div class="category-button"><span class="drop-menu-items">Categories</span>
                 <div class="category-button-panel">
-                    <div><button class="category-images"><span>Clothes</span><img src="images/category/still-life-rendering-jackets-display.jpg" alt="category jacket"></button></div>
-                    <div><button class="category-images"><span>Shoes</span><img src="images/category/denim-sneakers-street-style.jpg" alt="category shoes"></button></div>
-                    <div><button class="category-images"><span>Best offers</span><img src="images/category/couple-backpacks-rocks-sunset.jpg" alt="category bags"></button></div>
-                    <div><button class="category-images"><span>Outdoors</span><img src="images/category/decorative-cosmetics-accessories-sunglasses-hat-white-table.jpg" alt="category accessories"></button></div>
+                    <div><button class="category-images" id="clothe-category"><span>Clothes</span><img src="images/category/still-life-rendering-jackets-display.jpg" alt="category jacket"></button></div>
+                    <div><button class="category-images" id="shoes-category"><span>Shoes</span><img src="images/category/denim-sneakers-street-style.jpg" alt="category shoes"></button></div>
+                    <div><button class="category-images" id="offer-category"><span>Best offers</span><img src="images/category/couple-backpacks-rocks-sunset.jpg" alt="category bags"></button></div>
+                    <div><button class="category-images" id="outdoor-category"><span>Outdoors</span><img src="images/category/decorative-cosmetics-accessories-sunglasses-hat-white-table.jpg" alt="category accessories"></button></div>
                 </div>
             </div>
             <div class="daily-button"><span class="drop-menu-items">Daily deals</span>
                 <div class="daily-button-panel">
-                    <div><button class="daily-images"><span>Clothes</span><img src="images/category/still-life-rendering-jackets-display.jpg" alt="category jacket"></button></div>
-                    <div><button class="daily-images"><span>Shoes</span><img src="images/category/denim-sneakers-street-style.jpg" alt="category shoes"></button></div>
+                    <div><button class="daily-images" id="clothe-daily"><span>Clothes</span><img src="images/category/still-life-rendering-jackets-display.jpg" alt="category jacket"></button></div>
+                    <div><button class="daily-images" id="shoes-daily"><span>Shoes</span><img src="images/category/denim-sneakers-street-style.jpg" alt="category shoes"></button></div>
                 </div>
             </div>
             
@@ -252,7 +252,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-1">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
                     
@@ -297,7 +296,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-2">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-2" class="checkout-button">Check out</button>
                         </div>
                     </li>
 
@@ -342,7 +340,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-3">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-3" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -387,7 +384,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-4">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-4" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -433,7 +429,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-5">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-5" class="checkout-button">Check out</button>
                         </div>
                     </li>
                     
@@ -478,7 +473,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-6">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-6" class="checkout-button">Check out</button>
                         </div>
                     </li>
 
@@ -523,7 +517,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-7">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-7" class="checkout-button">Check out</button>
                         </div>
                     </li>
 
@@ -568,7 +561,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-8">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-8" class="checkout-button">Check out</button>
                         </div>
                     </li>
 
@@ -613,7 +605,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-9">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-9" class="checkout-button">Check out</button>
                         </div>
                     </li>
 
@@ -658,7 +649,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-10">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-10" class="checkout-button">Check out</button>
                         </div>
                     </li>  
                 </ul>
@@ -716,7 +706,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-11">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -761,7 +750,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-12">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -806,7 +794,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-13">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -851,7 +838,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-14">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -896,7 +882,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-15">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -941,7 +926,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-16">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -986,7 +970,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-17">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -1031,7 +1014,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-18">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -1076,7 +1058,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-19">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
 
@@ -1121,7 +1102,6 @@
                             <button class="counter-minus">-</button>
                             <span class="item-count itemTotal-20">0</span>
                             <button class="counter-add">+</button>
-                            <button id="check-out-shoes" class="checkout-button" onclick="updateCartContent()">Check out</button>
                         </div>
                     </li>
                     
@@ -1143,13 +1123,13 @@
                         <h4>Hot items</h4>
                     </div>
                     <div class="item-panel-lower-div-2">
-                        <button><img src="images/best offer/folder 1/close-up-basketball-shoes.jpg" alt="item 1"><span>Item 1</span></button>
-                        <button><img src="images/best offer/folder 1/couple-backpacks-rocks-sunset.jpg" alt="item 2"><span>Item 2</span></button>
-                        <button><img src="images/best offer/folder 1/shoe2.jpg" alt="item 3"><span>Item 3</span></button>
-                        <button><img src="images/best offer/folder 1/Sshoe.jpg" alt="item 4"><span>Item 4</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 1/close-up-basketball-shoes.jpg" alt="item 1"><span>Item 1</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 1/couple-backpacks-rocks-sunset.jpg" alt="item 2"><span>Item 2</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 1/shoe2.jpg" alt="item 3"><span>Item 3</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 1/Sshoe.jpg" alt="item 4"><span>Item 4</span></button>
                     </div>
                     <div class="item-panel-lower-link">
-                        <a href="">See more</a>
+                        <a class="lower-panel-item-card-links">See more</a>
                     </div>
                 </div>
                 <div class="item-panel-lower gift-for-love">
@@ -1157,13 +1137,13 @@
                         <h4>Gifts for your love one</h4>
                     </div>
                     <div class="item-panel-lower-div-2">
-                        <button><img src="images/best offer/folder 2/decorative-cosmetics-accessories-sunglasses-hat-white-table.jpg" alt="item 1"><span>Item 1</span></button>
-                        <button><img src="images/best offer/folder 2/jewellery-bangle-background-with-place-text-banner-fashion-accessories.jpg" alt="item 2"><span>Item 2</span></button>
-                        <button><img src="images/best offer/folder 2/vecteezy_ai-generated-earrings-made-of-gold-on-a-solid-color_35705132.jpeg" alt="item 3"><span>Item 3</span></button>
-                        <button><img src="images/best offer/folder 2/vecteezy_two-elegant-silver-rings-on-white-background_65780942.jpg" alt="item 4"><span>Item 4</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 2/decorative-cosmetics-accessories-sunglasses-hat-white-table.jpg" alt="item 1"><span>Item 1</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 2/jewellery-bangle-background-with-place-text-banner-fashion-accessories.jpg" alt="item 2"><span>Item 2</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 2/vecteezy_ai-generated-earrings-made-of-gold-on-a-solid-color_35705132.jpeg" alt="item 3"><span>Item 3</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 2/vecteezy_two-elegant-silver-rings-on-white-background_65780942.jpg" alt="item 4"><span>Item 4</span></button>
                     </div>
                     <div class="item-panel-lower-link">
-                        <a href="">Send to your love ones</a>
+                        <a class="lower-panel-item-card-links">Send to your love ones</a>
                     </div>
                 </div>  
                 <div class="item-panel-lower items-on-sale">
@@ -1171,13 +1151,13 @@
                         <h4>Items on sale right now</h4>
                     </div>
                     <div class="item-panel-lower-div-2">
-                        <button><img src="images/best offer/folder 3/collection-beige-tone-colored-pants.jpg" alt="item 1"><span>Item 2</span></button>
-                        <button><img src="images/best offer/folder 3/denim-sneakers-street-style.jpg" alt="item 2"><span>Item 2</span></button>
-                        <button><img src="images/best offer/folder 3/shoe5.jpg" alt="item 3"><span>Item 3</span></button>
-                        <button><img src="images/best offer/folder 3/vecteezy_stylish-leather-backpack-on-white-background-generative-ai_29840187.jpg" alt="item 4"><span>Item 4</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 3/collection-beige-tone-colored-pants.jpg" alt="item 1"><span>Item 1</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 3/denim-sneakers-street-style.jpg" alt="item 2"><span>Item 2</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 3/shoe5.jpg" alt="item 3"><span>Item 3</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 3/vecteezy_stylish-leather-backpack-on-white-background-generative-ai_29840187.jpg" alt="item 4"><span>Item 4</span></button>
                     </div>
                     <div class="item-panel-lower-link">
-                        <a href="">Discover more</a>
+                        <a class="lower-panel-item-card-links">Discover more</a>
                     </div>
                 </div>  
                 <div class="item-panel-lower season-trend">
@@ -1185,13 +1165,13 @@
                         <h4>Season trends</h4>
                     </div>
                     <div class="item-panel-lower-div-2">
-                        <button><img src="images/best offer/folder 4/close-up-portrait-fascinating-happy-woman-hat-outdoor-photo-good-looking-girl-dark-sunglasses-isolated-blur-background.jpg" alt="item 1"><span>Item 1</span></button>
-                        <button><img src="images/best offer/folder 4/minimal-t-shirt-set-apparel-ad.jpg" alt="item 2"><span>Item 2</span></button>
-                        <button><img src="images/best offer/folder 4/summer_w_1.jpg" alt="item 3"><span>Item 3</span></button>
-                        <button><img src="images/best offer/folder 4/Wshoe2.jpg" alt="item 4"><span>Item 4</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 4/close-up-portrait-fascinating-happy-woman-hat-outdoor-photo-good-looking-girl-dark-sunglasses-isolated-blur-background.jpg" alt="item 1"><span>Item 1</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 4/minimal-t-shirt-set-apparel-ad.jpg" alt="item 2"><span>Item 2</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 4/summer_w_1.jpg" alt="item 3"><span>Item 3</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/best offer/folder 4/Wshoe2.jpg" alt="item 4"><span>Item 4</span></button>
                     </div>
                     <div class="item-panel-lower-link">
-                        <a href="">See more</a>
+                        <a class="lower-panel-item-card-links">See more</a>
                     </div>   
                 </div> 
             </div>     
@@ -1208,15 +1188,15 @@
                     </div>
                     <div class="adventure-item">
                         <div>
-                            <button class="adventure-1"><img src="images/outdoors/folder 1/working-out.jpg" alt="item 1"><span>Item 1</span></button>
+                            <button class="adventure-1 best-offer-button"><img loading="lazy" src="images/outdoors/folder 1/working-out.jpg" alt="item 1"><span>Item 1</span></button>
                         </div>
                         <div>
-                            <button class="adventure-2"><img src="images/outdoors/folder 1/hiker-enjoying-view-from-cliff.jpg" alt="item 2"><span>Item 2</span></button>
-                            <button class="adventure-3"><img src="images/outdoors/folder 1/vecteezy_ai-generated-a-river-flowing-through-a-green-forest_42196286.jpg" alt="item 3"><span>Item 3</span></button>
+                            <button class="adventure-2 best-offer-button"><img loading="lazy" src="images/outdoors/folder 1/hiker-enjoying-view-from-cliff.jpg" alt="item 2"><span>Item 2</span></button>
+                            <button class="adventure-3 best-offer-button"><img loading="lazy" src="images/outdoors/folder 1/vecteezy_ai-generated-a-river-flowing-through-a-green-forest_42196286.jpg" alt="item 3"><span>Item 3</span></button>
                         </div>
                     </div>
                     <div class="item-panel-lower-link-2">
-                        <a href="">See more</a>
+                        <a class="lower-panel-item-card-links">See more</a>
                     </div>
                 </div>
                <div class="item-panel-lower gear-up outdoor-panel-item">
@@ -1224,11 +1204,11 @@
                         <h4>Gear up this season</h4>
                     </div>
                     <div class="gear-up-item">
-                        <button><img src="images/outdoors/folder 2/young-mountaineer.jpg" alt="item 1"><span>Item 1</span></button>
-                        <button><img src="images/outdoors/folder 2/view-composition-with-neatly-arranged-organized-sport-items.jpg" alt="item 2"><span>Item 2</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/outdoors/folder 2/young-mountaineer.jpg" alt="item 1"><span>Item 1</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/outdoors/folder 2/view-composition-with-neatly-arranged-organized-sport-items.jpg" alt="item 2"><span>Item 2</span></button>
                     </div>
                     <div class="item-panel-lower-link-2">
-                        <a href="">Want more</a>
+                        <a class="lower-panel-item-card-links">Want more</a>
                     </div>
                 </div>  
                 <div class="item-panel-lower gadget outdoor-panel-item">
@@ -1236,11 +1216,11 @@
                         <h4>Gadgets</h4>
                     </div>
                     <div class="gadget-item">
-                        <button><img src="images/outdoors/folder 3/modern-stationary-collection-arrangement.jpg" alt="item 3"><span>Item 1</span></button>
-                        <button><img src="images/outdoors/folder 3/vecteezy_outdoor-survival-gear-including-ropes-compass-knife_73785059.jpg" alt="item 4"><span>Item 2</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/outdoors/folder 3/modern-stationary-collection-arrangement.jpg" alt="item 3"><span>Item 1</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/outdoors/folder 3/vecteezy_outdoor-survival-gear-including-ropes-compass-knife_73785059.jpg" alt="item 4"><span>Item 2</span></button>
                     </div>
                     <div class="item-panel-lower-link-2">
-                        <a href="">Discover more</a>
+                        <a class="lower-panel-item-card-links">Discover more</a>
                     </div>
                 </div>  
                 <div class="item-panel-lower stylish outdoor-panel-item">
@@ -1248,12 +1228,12 @@
                         <h4>Stylish</h4>
                     </div>
                     <div class="stylish-item">
-                        <button><img src="images/outdoors/folder 4/vecteezy_beautiful-woman-photographer-standing-hand-holding-retro-camera_3146611.jpg" alt="item 1"><span>Item 1</span></button>
-                        <button><img src="images/outdoors/folder 4/high-angle-man-exploring-nature.jpg" alt="item 2"><span>Item 2</span></button>
-                        <button><img src="images/outdoors/folder 4/young-beautiful-woman-tropical-vacation-asia-summer-style-white-boho-dress-sneakers-digital-photo-camera-traveler-straw-hat-relaxed.jpg" alt="item 3"><span>Item 3</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/outdoors/folder 4/vecteezy_beautiful-woman-photographer-standing-hand-holding-retro-camera_3146611.jpg" alt="item 1"><span>Item 1</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/outdoors/folder 4/high-angle-man-exploring-nature.jpg" alt="item 2"><span>Item 2</span></button>
+                        <button class="best-offer-button"><img loading="lazy" src="images/outdoors/folder 4/young-beautiful-woman-tropical-vacation-asia-summer-style-white-boho-dress-sneakers-digital-photo-camera-traveler-straw-hat-relaxed.jpg" alt="item 3"><span>Item 3</span></button>
                     </div>
                     <div class="item-panel-lower-link-2">
-                        <a href="">See more</a>
+                        <a class="lower-panel-item-card-links">See more</a>
                     </div>   
                 </div> 
             </div>     
@@ -1267,7 +1247,7 @@
         </div>
         <div class="contact-div" id="contact-div-for-mobile">
             <div>
-                <img src="images/category/hot items/letter-uppercase-square-n-svgrepo-com.svg" alt="company logo">
+                <img loading="lazy" src="images/category/hot items/letter-uppercase-square-n-svgrepo-com.svg" alt="company logo">
             </div>
             <div class="contact-div-contents">
                 <span>Curious about us?</span>
@@ -1290,9 +1270,9 @@
         </div>
         <div class="alright-reserve">
             <p>© Nov-2025, Ⓝ Netora, Jonathan P. Tindungan</p>
-            <a href=""><img src="images/category/hot items/facebook-svgrepo-com.svg" alt="Facebook"></a>
-            <a href=""><img src="images/category/hot items/instagram-rounded-border-svgrepo-com.svg" alt="Instagram"></a>
-            <a href=""><img src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
+            <a href=""><img loading="lazy" src="images/category/hot items/facebook-svgrepo-com.svg" alt="Facebook"></a>
+            <a href=""><img loading="lazy" src="images/category/hot items/instagram-rounded-border-svgrepo-com.svg" alt="Instagram"></a>
+            <a href=""><img loading="lazy" src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
         </div>
     </footer>
      <!--Cart container-->
@@ -1308,10 +1288,10 @@
             </ul>
         </div>
         <div class="alright-reserve-cart-footer">
-            <p>© Nov-2025, Ⓝ Netora, Jonathan P. Tindungan</p>
-            <a href=""><img src="images/category/hot items/facebook-svgrepo-com.svg" alt="Facebook"></a>
-            <a href=""><img src="images/category/hot items/instagram-rounded-border-svgrepo-com.svg" alt="Instagram"></a>
-            <a href=""><img src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
+            <p>© Nov-2025, Ⓝ Notare, Jonathan P. Tindungan</p>
+            <a href=""><img loading="lazy" src="images/category/hot items/facebook-svgrepo-com.svg" alt="Facebook"></a>
+            <a href=""><img loading="lazy" src="images/category/hot items/instagram-rounded-border-svgrepo-com.svg" alt="Instagram"></a>
+            <a href=""><img loading="lazy" src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
         </div>
     </aside>
     <!--For covering the main page when cart is opened-->

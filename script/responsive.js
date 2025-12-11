@@ -8,9 +8,7 @@ document.addEventListener("DOMContentLoaded", mobileDesktopInit);
 window.addEventListener("resize", mobileDesktopInit);
 
 function mobileDesktopInit() {
-
     const isMobile = window.innerWidth <= 430;
-
     if (isMobile) {
         enableMobile();
     } else {
@@ -77,7 +75,6 @@ function enableMobile() {
         document.body.classList.remove("no-scroll");
     };
     }
-
 }
 function enableDesktop() {
     
@@ -107,13 +104,10 @@ const loginPage = document.getElementById('login-page');
 const closeLoginPage = document.getElementById('close-login-page');
 document.addEventListener("DOMContentLoaded", () =>{
 
-
         const loginBtn = document.getElementById('login-button');
         const loginBtnMenu = document.getElementById('login-button-menu-header');
         const loginBtnMenuCart = document.getElementById('login-button-menu-header-cart');
-       // const loginBtnMenuCartTab = document.getElementById('login-button-menu-header-cart-tab');
-        
-        
+       // const loginBtnMenuCartTab = document.getElementById('login-button-menu-header-cart-tab');        
         
         //For diplaying login page
         if(loginBtn){
@@ -148,7 +142,6 @@ document.addEventListener("DOMContentLoaded", () =>{
             document.body.classList.add('no-scroll');
         });
       }*/
-        
         //For closing login page
         closeLoginPage.addEventListener('click', () => {
             loginPage.classList.remove('log-in');
@@ -189,10 +182,20 @@ document.addEventListener("DOMContentLoaded", () =>{
           contactContainer.removeChild(footerContainer);
           return;
         }
-        }
-        
-            
+        }                  
 });
+
+function loginCreateAccnt(){
+  const loginBtn = document.getElementById('sign-in');
+  const createAccBtn = document.getElementById('register');
+
+  loginBtn.addEventListener('click', () =>{
+    alert('Link to login page');
+  });
+  createAccBtn.addEventListener('click', () =>{
+    alert('Link to create account page');
+  });
+}loginCreateAccnt();
 
 window.__mobileUpperSliderActive = false;
 window.__mobileMainSliderActive = false;
