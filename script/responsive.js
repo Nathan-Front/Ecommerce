@@ -7,6 +7,7 @@ const burgerClose = document.getElementById("burger-close");
 document.addEventListener("DOMContentLoaded", mobileDesktopInit);
 window.addEventListener("resize", mobileDesktopInit);
 
+//Initialize which viewport currently is
 function mobileDesktopInit() {
     const isMobile = window.innerWidth <= 430;
     if (isMobile) {
@@ -21,9 +22,6 @@ function enableMobile() {
     window.__mobileEnabled = true;
     window.__desktopEnabled = false;
 
-    //const titlePanel = document.querySelector('.title-cart-panel');
-    //const burgerLinks = document.querySelector("#burger-menu");
-
     const homeItemBtn = document.createElement('button');
     homeItemBtn.className = 'cpHomeBtn';
 
@@ -36,14 +34,14 @@ function enableMobile() {
       location.href = 'index.html';
     });
     if(menuHomeBtn){
-      menuHomeBtn.addEventListener('click', () => {
+        menuHomeBtn.addEventListener('click', () => {
         location.href = 'index.html';
       });
     }
-      burgerOpen.style.display = 'flex';
-      titlePanel.append(burgerOpen);
-      //Burger open button click event
-      burgerOpen.onclick = () => {
+    burgerOpen.style.display = 'flex';
+    titlePanel.append(burgerOpen);
+    //Burger open button click event
+    burgerOpen.onclick = () => {
       if(cartContentEmpty.classList.contains('navActive') || loginPage.classList.contains('log-in')){
         cartContentEmpty.classList.remove('navActive');
         loginPage.classList.remove('log-in');
@@ -77,15 +75,9 @@ function enableMobile() {
     }
 }
 function enableDesktop() {
-    
     if (window.__desktopEnabled) return;
     window.__desktopEnabled = true;
     window.__mobileEnabled = false;
-
-    const titlePanel = document.querySelector('.title-cart-panel');
-    const burgerLinks = document.querySelector("#burger-menu");
-    const burgerOpen = document.getElementById("burger");
-    const burgerClose = document.getElementById("burger-close");
 
     // Remove mobile classes
     burgerLinks.classList.remove("burger-links");
@@ -106,8 +98,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
         const loginBtn = document.getElementById('login-button');
         const loginBtnMenu = document.getElementById('login-button-menu-header');
-        const loginBtnMenuCart = document.getElementById('login-button-menu-header-cart');
-       // const loginBtnMenuCartTab = document.getElementById('login-button-menu-header-cart-tab');        
+        const loginBtnMenuCart = document.getElementById('login-button-menu-header-cart');       
         
         //For diplaying login page
         if(loginBtn){
@@ -135,36 +126,29 @@ document.addEventListener("DOMContentLoaded", () =>{
             burgerLinks.classList.remove("burger-links");
         });
       }
-      /*
-      if(loginBtnMenuCartTab){
-        loginBtnMenuCartTab.addEventListener('click', () =>{
-              loginPage.classList.add('log-in');
-            document.body.classList.add('no-scroll');
-        });
-      }*/
-        //For closing login page
-        closeLoginPage.addEventListener('click', () => {
-            loginPage.classList.remove('log-in');
-            document.body.classList.remove('no-scroll');
-            coverPage.style.display = 'none';
-        });
-        if(window.innerWidth > 540) return;
-        const upperPanel1 = document.querySelector('.main-panel-upper-first');
-        const upperPanel2 = document.querySelector('.main-panel-upper-second');
-        const upperPanel3 = document.querySelector('.main-panel-upper-third');
-        upperPanel1.addEventListener('click', () =>{
-          alert('clicked first panel. Content under planning');
-        });
-        upperPanel2.addEventListener('click', () =>{
-           alert('clicked second panel. Content under planning');
-        });
-        upperPanel3.addEventListener('click', () =>{
-          alert('clicked third panel. Content under planning');
-        });
+      //For closing login page
+      closeLoginPage.addEventListener('click', () => {
+          loginPage.classList.remove('log-in');
+          document.body.classList.remove('no-scroll');
+          coverPage.style.display = 'none';
+      });
+      //For the carousel at the very top of the page
+      if(window.innerWidth > 540) return;
+      const upperPanel1 = document.querySelector('.main-panel-upper-first');
+      const upperPanel2 = document.querySelector('.main-panel-upper-second');
+      const upperPanel3 = document.querySelector('.main-panel-upper-third');
+      upperPanel1.addEventListener('click', () =>{
+        alert('clicked first panel. Content under planning');
+      });
+      upperPanel2.addEventListener('click', () =>{
+          alert('clicked second panel. Content under planning');
+      });
+      upperPanel3.addEventListener('click', () =>{
+        alert('clicked third panel. Content under planning');
+      });
         
-        //For the carousel at the very top of the page
-        if(window.innerWidth <= 430){
-
+      //For the carousel at the very top of the page during mobile viewport
+      if(window.innerWidth <= 430){
         const newUpperPanel = document.createElement('div');
         newUpperPanel.classList = 'new-upper-panel';
         const firstUpper = document.querySelectorAll('.upper-carousel');
@@ -182,13 +166,13 @@ document.addEventListener("DOMContentLoaded", () =>{
           contactContainer.removeChild(footerContainer);
           return;
         }
-        }                  
+      }                  
 });
 
+//Just a message whe login/create account was clicked
 function loginCreateAccnt(){
   const loginBtn = document.getElementById('sign-in');
   const createAccBtn = document.getElementById('register');
-
   loginBtn.addEventListener('click', () =>{
     alert('Link to login page');
   });
@@ -197,98 +181,98 @@ function loginCreateAccnt(){
   });
 }loginCreateAccnt();
 
+//Carousel of the upper panel items on mobile viewport
+//This function is different from when on desktop viewport
 window.__mobileUpperSliderActive = false;
 window.__mobileMainSliderActive = false;
 function mobileUpperPanelSlider(){
-        if (window.innerWidth > 430) {
+    if (window.innerWidth > 430) {
         window.__mobileUpperSliderActive = false;
-
         // Clean dots when switching to desktop
         const dots = document.querySelector('.mobile-slider-dots');
         if (dots) dots.innerHTML = "";
-
         return;
     }
     if (window.__mobileUpperSliderActive) return;
     window.__mobileUpperSliderActive = true;
-        const slider = document.querySelector('.new-upper-panel');
-        if(!slider) return;
-        const upperPanelContent = document.querySelectorAll('.upper-carousel');
-        const dotsContainer = document.querySelector('.mobile-slider-dots');
+    const slider = document.querySelector('.new-upper-panel');
+    if(!slider) return;
+    const upperPanelContent = document.querySelectorAll('.upper-carousel');
+    const dotsContainer = document.querySelector('.mobile-slider-dots');
 
-        let index = 0;
-        let startX = 0;
-        let isDragging = false;
-
-        dotsContainer.innerHTML = '';
-        upperPanelContent.forEach((_, i) => {
-        const dot = document.createElement('span');
-        dot.className = 'mobile-dot' + (i === 0 ? ' mobile-active' : '');
-        dot.addEventListener('click', () => goToSlide(i));
-        dotsContainer.appendChild(dot);
-        });
+    let index = 0;
+    let startX = 0;
+    let isDragging = false;
+    dotsContainer.innerHTML = '';
+    upperPanelContent.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'mobile-dot' + (i === 0 ? ' mobile-active' : '');
+      dot.addEventListener('click', () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
         
+    const dots = document.querySelectorAll('.mobile-dot');
+    function updateSlider(){
+      upperPanelContent.forEach((s, i) => {
+        s.style.transform =  `translateX(${-index * 100}%)`; //each slide move to left by %
+      });
+      dots.forEach((d, i) => {
+        d.classList.toggle('mobile-active', i === index); //Show which dot is acurrently active
+      });
+    }
+    //Index indicator for carousel    
+    function goToSlide(i) {
+      index = i;
+      updateSlider();
+    }
 
-        const dots = document.querySelectorAll('.mobile-dot');
-        function updateSlider(){
-                upperPanelContent.forEach((s, i) => {
-                        s.style.transform =  `translateX(${-index * 100}%)`;
-                });
-                dots.forEach((d, i) => {
-                d.classList.toggle('mobile-active', i === index);
-                });
-        }
-        
-        function goToSlide(i) {
-                index = i;
-                updateSlider();
-        }
-
-        function nextSlide() {
-                index = (index + 1) % upperPanelContent.length;
-                updateSlider();
-        }
-         slider.addEventListener('touchstart', e => {startX = e.touches[0].clientX;
-          isDragging = true;},
-          { passive: true }
-        );
-
-        slider.addEventListener('touchmove', e => {
-                if (!isDragging) return;
-        }, { passive: true });
-        slider.addEventListener('touchend', e => {
-                if (!isDragging) return;
-                        const endX = e.changedTouches[0].clientX;
-                        const diff = endX - startX;
-
-        if (diff > 50) {
-            index = index === 0 ? upperPanelContent.length - 1 : index - 1;
-        } else if (diff < -50) {
-            index = (index + 1) % upperPanelContent.length;
-        }
-
-        updateSlider();
-                isDragging = false;
-        });
-          updateSlider();
-        
+    function nextSlide() {
+      index = (index + 1) % upperPanelContent.length;
+      updateSlider();
+    }
+    //Starting position of touch
+    slider.addEventListener('touchstart', e => {startX = e.touches[0].clientX;
+      isDragging = true;}, //Marks dragging as active
+      { passive: true } //Makes touchevent performance better
+    );
+    //For dragging is active
+    slider.addEventListener('touchmove', e => {
+      if (!isDragging) return;
+    }, { passive: true });
+    //When touch stop
+    slider.addEventListener('touchend', e => {
+      if (!isDragging) return;
+        const endX = e.changedTouches[0].clientX; //Get position where finger was lifter
+        const diff = endX - startX; //Calculate how far the finger moved. This will move the slider right/left depending on calculation
+      //Go previous/next slide based on the calculated above. Basis is 50px below
+      if (diff > 50) {
+        index = index === 0 ? upperPanelContent.length - 1 : index - 1;
+      } else if (diff < -50) {
+        index = (index + 1) % upperPanelContent.length;
+      }
+      updateSlider(); //Do the slide movement (traslateX above)
+        isDragging = false; //Stops dragging after lifting finger
+      });
+      updateSlider();      
 }
+//call mobile carousel function
 document.addEventListener('DOMContentLoaded', mobileUpperPanelSlider);
 window.addEventListener("resize", () => {
     mobileUpperPanelSlider();
 });
 
+
+//Remove mobile carousel function when switching to desktop viewport
 function mobileMainPanelSlider(){
   if (window.innerWidth > 430) {
     if (window.__mobileMainSliderActive) {
         window.__mobileMainSliderActive = false;
-
         document.querySelectorAll(
             ".mobile-main-panel-carousel-dots, .mobile-main-panel-slider-dots"
         ).forEach(el => el.remove());
     }
     return;
-}
+  }
 
   const wrapper = document.querySelector('.owl-carousel-container');
   const list = document.querySelector('.owl-carousel');
@@ -300,7 +284,7 @@ function mobileMainPanelSlider(){
   let currentTranslate = 0;
   let animating = false;
   
-  // --- CREATE DOT CONTAINER ---
+  //Create DOT container
   let dotsContainer = document.querySelector('.mobile-main-panel-slider-dots');
   if (!dotsContainer) {
     dotsContainer = document.createElement('div');
@@ -308,9 +292,9 @@ function mobileMainPanelSlider(){
     wrapper.appendChild(dotsContainer);
   }
 
-  // --- CREATE DOTS ---
+  //Create the DOTs
   dotsContainer.innerHTML = '';
-  const dots = items.map((_, i) => {
+  const dots = items.map((_, i) => { //The underscore just means to just ignore this _ parameter
     const dot = document.createElement('button');
     dot.className = 'mobile-main-panel-dots';
     if (i === 0) dot.classList.add('mobile-main-panel-active');
@@ -327,44 +311,43 @@ function mobileMainPanelSlider(){
   // calculate widths including margins
   function getSlideMetrics() {
     const item = items[0];
-    const itemRect = item.getBoundingClientRect();
-    const style = getComputedStyle(item);
-    const marginLeft = parseFloat(style.marginLeft) || 0;
-    const marginRight = parseFloat(style.marginRight) || 0;
-    const slideWidth = itemRect.width; // doesn't include margins
-    const listStyle = getComputedStyle(list);
+    const itemRect = item.getBoundingClientRect(); //Return the item's width
+    const style = getComputedStyle(item); //Reads all the css of the item. This time its the width (margin, padding, gap etc)
+    const marginLeft = parseFloat(style.marginLeft) || 0; //Converts to number
+    const marginRight = parseFloat(style.marginRight) || 0; //Converts to number
+    const slideWidth = itemRect.width; //Doesn't include margins in here. It needs to be calculated see below
+    const listStyle = getComputedStyle(list); //Reads all the css of the item. This time its the width (margin, padding, gap etc)
     let gap = parseFloat(listStyle.gap) || 0;//Get also the gap style from the carousel container
     // If gap is percentage, convert it to px:
-  if (listStyle.gap.includes('%')) {
-        const wrapperWidth = wrapper.getBoundingClientRect().width;
-         gap = wrapperWidth * (parseFloat(listStyle.gap) / 100);
-        }
-    const fullSlideWidth = slideWidth + marginLeft + marginRight + gap;
-    const wrapperWidth = wrapper.getBoundingClientRect().width;
-
+    if (listStyle.gap.includes('%')) {
+      const wrapperWidth = wrapper.getBoundingClientRect().width; //Gets actual pixel width wrapper of the element
+      gap = wrapperWidth * (parseFloat(listStyle.gap) / 100); //Converts % to px
+    }
+    const fullSlideWidth = slideWidth + marginLeft + marginRight + gap; //Calculation of total width
+    const wrapperWidth = wrapper.getBoundingClientRect().width; //Gets the width of the area that contains the slides
     return { slideWidth, fullSlideWidth, wrapperWidth };
   }
 
   function updateTransform(translateX, withTransition = true) {
-    list.style.transition = withTransition ? 'transform 300ms ease' : 'none';
-    list.style.transform = `translateX(${translateX}px)`;
+    list.style.transition = withTransition ? 'transform 300ms ease' : 'none'; //If statement to add animation if withTransition is true
+    list.style.transform = `translateX(${translateX}px)`; //Move slider x-axis
   }
 
   function goToIndex(i) {
     const { slideWidth, fullSlideWidth, wrapperWidth } = getSlideMetrics();
-    // --- WRAP AROUND LOGIC ---
+    //Wrap around slider logic
     if (i < 0) {
-        index = items.length - 1;      // go to last slide
+        index = items.length - 1; // go to last slide
     } else if (i >= items.length) {
-        index = 0;                     // go to first slide
+        index = 0; // go to first slide
     } else {
-        index = i;
+        index = i; //Stay to current slide
     }
     // center offset so the active slide sits in the middle of wrapper
-    const centerOffset = (wrapperWidth - slideWidth) / 2;
-    const translateX = -(index * fullSlideWidth) + centerOffset;
-    currentTranslate = translateX;
-    updateTransform(translateX, true);
+    const centerOffset = (wrapperWidth - slideWidth) / 2; //This calculate where to center the slider
+    const translateX = -(index * fullSlideWidth) + centerOffset; //This calculate where to move slide for the next slide so that it will be centered
+    currentTranslate = translateX; //Save current slide position
+    updateTransform(translateX, true); //Move slider x-axis
     updateDots();
   }
 
@@ -407,23 +390,11 @@ function mobileMainPanelSlider(){
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => goToIndex(i));
   });
-/*Original code but due to erro when manually resizing the width
-  error occurs and read null to our appended items so use below code instead
-  // Recenter on resize (recompute metrics)
-  window.addEventListener('resize', () => {
-    // re-center currently active slide
-    goToIndex(index);
-  });*/
-  // Recenter on resize (recompute metrics)
-  // init
+  // initialize
   goToIndex(0);  
 }
 document.addEventListener('DOMContentLoaded', mobileMainPanelSlider);
-//window.addEventListener('resize', mobileMainPanelSlider);
 window.addEventListener("resize", mobileMainPanelSlider);
-
-
-
 
 
 function mobileMainPanelSlider2(){
@@ -448,7 +419,7 @@ function mobileMainPanelSlider2(){
   let currentTranslate2 = 0;
   let animating2 = false;
   
-  // --- CREATE DOT CONTAINER ---
+  //Create DOT container
   let dotsContainer2 = document.querySelector('.mobile-main-panel-slider-dots-2');
   if (!dotsContainer2) {
     dotsContainer2 = document.createElement('div');
@@ -456,7 +427,7 @@ function mobileMainPanelSlider2(){
     wrapper2.appendChild(dotsContainer2);
   }
 
-  // --- CREATE DOTS ---
+  //Create DOTs
   dotsContainer2.innerHTML = '';
   const dots2 = items2.map((_, i) => {
     const dot2 = document.createElement('button');
@@ -472,16 +443,15 @@ function mobileMainPanelSlider2(){
     });
   }
   // calculate widths including margins
-    // If gap is percentage, convert it to px:
   function getSlideMetrics2() {
     const item2 = items2[0];
     const itemRect2 = item2.getBoundingClientRect();
     const style2 = getComputedStyle(item2);
     const marginLeft2 = parseFloat(style2.marginLeft) || 0;
     const marginRight2 = parseFloat(style2.marginRight) || 0;
-    const slideWidth2 = itemRect2.width; // doesn't include margins
+    const slideWidth2 = itemRect2.width; 
     const listStyle2 = getComputedStyle(list2);
-    let gap2 = parseFloat(listStyle2.gap) || 0;//Get also the gap style from the carousel container
+    let gap2 = parseFloat(listStyle2.gap) || 0;
     // If gap is percentage, convert it to px:
   if (listStyle2.gap.includes('%')) {
         const wrapperWidth2 = wrapper2.getBoundingClientRect().width;
@@ -500,11 +470,11 @@ function mobileMainPanelSlider2(){
 
   function goToIndex2(i) {
     const { slideWidth2, fullSlideWidth2, wrapperWidth2 } = getSlideMetrics2();
-    // --- WRAP AROUND LOGIC ---
+    //Wrap slide logic
     if (i < 0) {
-        index2 = items2.length - 1;      // go to last slide
+        index2 = items2.length - 1; // go to last slide
     } else if (i >= items2.length) {
-        index2 = 0;                     // go to first slide
+        index2 = 0; // go to first slide
     } else {
         index2 = i;
     }
@@ -522,7 +492,7 @@ function mobileMainPanelSlider2(){
     const t = e.touches[0];
     startX2 = t.clientX;
     isDragging2 = true;
-    list2.style.transition = 'none'; // disable transition while dragging
+    list2.style.transition = 'none'; 
   }, {passive: true});
 
   list2.addEventListener('touchmove', (e) => {
@@ -530,7 +500,7 @@ function mobileMainPanelSlider2(){
     const t = e.touches[0];
     const { fullSlideWidth } = getSlideMetrics2();
     const delta = t.clientX - startX2;
-    // show follow-drag feedback by applying delta to currentTranslate
+ 
     updateTransform2(currentTranslate2 + delta, false);
   }, {passive: true});
 
@@ -540,33 +510,26 @@ function mobileMainPanelSlider2(){
     const diff = endX - startX2;
     isDragging2 = false;
 
-    // threshold
+    //threshold of 50px
     const THRESH = 50;
     if (diff > THRESH) {
       goToIndex2(index2 - 1);
     } else if (diff < -THRESH) {
       goToIndex2(index2 + 1);
     } else {
-      // snap back to same slide
+      //snap back to same slide
       goToIndex2(index2);
     }
   });
   dots2.forEach((dot2, i) => {
     dot2.addEventListener('click', () => goToIndex2(i));
   });
-  // Recenter on resize (recompute metrics)
-  /*window.addEventListener('resize', () => {
-    // re-center currently active slide
-    goToIndex2(index2);
-  });*/
-
   // inititilization
   goToIndex2(0);    
 }
 document.addEventListener('DOMContentLoaded', mobileMainPanelSlider2);
 window.addEventListener('resize', mobileMainPanelSlider2);
 const mq = window.matchMedia("(max-width: 430px)");
-
 mq.addEventListener("change", e => {
     if (!e.matches) {
         // Desktop now → remove ALL dots
@@ -579,6 +542,7 @@ mq.addEventListener("change", e => {
     } 
 });
 
+
 let lowerSliderInitialized = false;
 function mobileLowerPanelSlider(){
   if (window.innerWidth > 430) return;
@@ -586,25 +550,22 @@ function mobileLowerPanelSlider(){
   const lowerList = document.querySelector('.outdoor-panel-mobile-container');
   const lowerItems = Array.from(document.querySelectorAll('.outdoor-panel-item'));  
 
+  //Remove all event listeners of mobile viewport when switching to desktop/tablet viewport
   if (window.innerWidth > 430) {
-
     if (lowerSliderInitialized) {
-      // Remove transform
+      // Remove transform animations
       lowerList.style.transform = "";
       lowerList.style.transition = "";
-
-      // Remove all touch listeners by cloning
+      // Remove all touch eventlisteners by cloning. *Cloning removes eventListeners
       const clone = lowerList.cloneNode(true);
       lowerList.parentNode.replaceChild(clone, lowerList);
-
-      lowerSliderInitialized = false;
+      lowerSliderInitialized = false; //Update flag telling slide is no longer active
     }
-
     return;
   }
+
   if (lowerSliderInitialized) return;
-  lowerSliderInitialized = true;
-  
+  lowerSliderInitialized = true; //If slide is active
   let index3 = 0;
   let startX3 = 0;
   let isDragging3 = false;
@@ -618,9 +579,9 @@ function mobileLowerPanelSlider(){
     const style3 = getComputedStyle(item3);
     const marginLeft3 = parseFloat(style3.marginLeft) || 0;
     const marginRight3 = parseFloat(style3.marginRight) || 0;
-    const slideWidth3 = itemRect3.width; // doesn't include margins
+    const slideWidth3 = itemRect3.width;
     const listStyle3 = getComputedStyle(lowerList);
-    let gap = parseFloat(listStyle3.gap) || 0;//Get also the gap style from the carousel container
+    let gap = parseFloat(listStyle3.gap) || 0;
     // If gap is percentage, convert it to px:
   if (listStyle3.gap.includes('%')) {
         const wrapperWidth3 = lowerWrapper.getBoundingClientRect().width;
@@ -639,11 +600,11 @@ function mobileLowerPanelSlider(){
 
   function goToIndex3(i) {
     const { slideWidth3, fullSlideWidth3, wrapperWidth3 } = getSlideMetrics3();
-    // --- WRAP AROUND LOGIC ---
+    //Wrap slide logic
     if (i < 0) {
-        index3 = lowerItems.length - 1;      // go to last slide
+        index3 = lowerItems.length - 1; // go to last slide
     } else if (i >= lowerItems.length) {
-        index3 = 0;                     // go to first slide
+        index3 = 0;  // go to first slide
     } else {
         index3 = i;
     }
@@ -701,6 +662,7 @@ function mobileLowerPanelSlider(){
 document.addEventListener('DOMContentLoaded', mobileLowerPanelSlider);
 window.addEventListener('resize', mobileLowerPanelSlider);
 
+//Back to top button function
 function backToTop(){
   const backToTopBtn = document.querySelector('#back-to-top');
   backToTopBtn.addEventListener('click', () =>{
@@ -710,177 +672,160 @@ function backToTop(){
 }backToTop();
 
  function mostAskedQuestions(){
-     
-        const newsMenuBtn1 = document.getElementById('newsMenuBtn1');
-        const newsMenuBtn2 = document.getElementById('newsMenuBtn2');
-        const newsMenuBtn3 = document.getElementById('newsMenuBtn3');
-        let newsMenuArray = [newsMenuBtn1, newsMenuBtn2,newsMenuBtn3];
-        const menuDiv = document.createElement('div');
-        menuDiv.className = 'menu-div-pop';
-      
-        const upperHeaderContainer = document.querySelector('.mobile-header');
-        upperHeaderContainer.classList.add('mobile-header-menu');
-        burgerLinks.prepend(upperHeaderContainer);  
+  const newsMenuBtn1 = document.getElementById('newsMenuBtn1');
+  const newsMenuBtn2 = document.getElementById('newsMenuBtn2');
+  const newsMenuBtn3 = document.getElementById('newsMenuBtn3');
+  let newsMenuArray = [newsMenuBtn1, newsMenuBtn2,newsMenuBtn3];
+  let newsMenuArray2 = document.querySelectorAll('.menu-buttons');
+  const menuDiv = document.createElement('div');
+  menuDiv.className = 'menu-div-pop';
 
-             
-        burgerLinks.append(menuDiv);
-        const burgerLinkFooter = document.querySelector('.burger-links-hidden-footer');
-        burgerLinkFooter.classList.add('alright-reserve-burgerlinks-footer');
-        burgerLinks.appendChild(burgerLinkFooter);
-
-        menuDiv.addEventListener('click', (e) => {
-        const dropQuestionsBtn = e.target.closest('#drop-questions');
-        if (dropQuestionsBtn) {
-                const dropAnswers = menuDiv.querySelector('#questions');
-                if (dropAnswers) {
-                        dropAnswers.style.display = 
-                        dropAnswers.style.display === 'none' ? 'flex' : 'none';
-                }
-         }
+  const upperHeaderContainer = document.querySelector('.mobile-header');
+  upperHeaderContainer.classList.add('mobile-header-menu');
+  burgerLinks.prepend(upperHeaderContainer);
+       
+  burgerLinks.append(menuDiv);
+  const burgerLinkFooter = document.querySelector('.burger-links-hidden-footer');
+  burgerLinkFooter.classList.add('alright-reserve-burgerlinks-footer');
+  burgerLinks.appendChild(burgerLinkFooter);
+  //Content for when burgerOpen button was clicked
+  //Works intandem with the code at the bottom
+  menuDiv.addEventListener('click', (e) => {
+    const dropQuestionsBtn = e.target.closest('#drop-questions');
+    if (dropQuestionsBtn) {
+            const dropAnswers = menuDiv.querySelector('#questions');
+            if (dropAnswers) {
+                    dropAnswers.style.display = 
+                    dropAnswers.style.display === 'none' ? 'flex' : 'none';
+            }
+     }  
+    const policyBtn = e.target.closest('#policy');
+    if(policyBtn){
+            const policyContent = menuDiv.querySelector('#policies');
+            if(policyContent){
+                   policyContent.style.display = 
+                   policyContent.style.display === 'none' ? 'flex' : 'none'; 
+            }
+    }
+    const communityBtn = e.target.closest('#community');
+    if(communityBtn){
+            const communityContent = menuDiv.querySelector('#communities');
+            if(communityContent){
+                    communityContent.style.display =
+                    communityContent.style.display === 'none' ? 'flex' : 'none';
+            }
+    }
+  });
         
-        const policyBtn = e.target.closest('#policy');
-        if(policyBtn){
-                const policyContent = menuDiv.querySelector('#policies');
-                if(policyContent){
-                       policyContent.style.display = 
-                       policyContent.style.display === 'none' ? 'flex' : 'none'; 
-                }
-        }
-        const communityBtn = e.target.closest('#community');
-        if(communityBtn){
-                const communityContent = menuDiv.querySelector('#communities');
-                if(communityContent){
-                        communityContent.style.display =
-                        communityContent.style.display === 'none' ? 'flex' : 'none';
-                }
-        }
-        });
-        
-        
-        for(let i = 0; i < newsMenuArray.length; i++){
-                newsMenuArray[i].addEventListener('click', () => {  
-                        if(newsMenuArray[i].id === 'newsMenuBtn1'){ 
-                                        
-                        menuDiv.innerHTML =`
-                        <span class="news-menu-cp-head">News</span>
-                        <div class="news-menu-cp">
-                                <span class="news-menu-cp-title">Title 1</span> 
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolorem praesentium at alias velit cum. Eius optio maiores delectus unde ipsam labore a numquam quod aperiam temporibus, corporis qui accusamus!</p>
-                                <img src="images/category/communication-social-media-icons.jpg" alt="Trend icon">
-                        </div>
-                        <div class="news-menu-cp">
-                                <span class="news-menu-cp-title">Title 2</span> 
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolorem praesentium at alias velit cum. Eius optio maiores delectus unde ipsam labore a numquam quod aperiam temporibus, corporis qui accusamus!</p>
-                                <img src="images/category/couple-backpacks-rocks-sunset.jpg" alt="New release">
-                        </div>
-                        <div class="news-menu-cp">
-                                <span class="news-menu-cp-title">Title 3</span> 
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolorem praesentium at alias velit cum. Eius optio maiores delectus unde ipsam labore a numquam quod aperiam temporibus, corporis qui accusamus!</p>
-                                <img src="images/category/denim-sneakers-street-style.jpg" alt="Most ordered">
-                        </div>
-                        <div class="news-menu-cp">
-                                <span class="news-menu-cp-title">Title 4</span> 
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolorem praesentium at alias velit cum. Eius optio maiores delectus unde ipsam labore a numquam quod aperiam temporibus, corporis qui accusamus!</p>
-                                <img src="images/upper-panel/vecteezy_antique-table-holds-old-literature-rustic-elegance_24642428.jpg" alt="Creative styles">
-                        </div>
-                        `;          
-                        }else if(newsMenuArray[i].id === 'newsMenuBtn2'){
-                        menuDiv.innerHTML = `
-                        <span class="news-menu-cp-head">About us</span>
-                        <div class="about-us-menu-cp">
-                                <div class="about-us-menu-cp-img">
-                                        <img src="images/logo/agency.jpg" alt=""> 
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>    
-                                </div>
-                                <p class="menu-contact">Contact #: 000-0000-0000</p>
-                                <p>Email: oOo@testmail.com</p>
-                                <p>Address: somewhere down d street Ave.</p>
-                                <div class="social-media">
-                                        <img src="images/logo/facebook-svgrepo-com.svg" alt="facebook">
-                                        <img src="images/logo/instagram-rounded-border-svgrepo-com.svg" alt="instagram">
-                                        <img src="images/logo/linkedin-boerder-svgrepo-com.svg" alt="instagram">
-                                </div>
-                        </div>
-                        `;
-               
-                        }else if(newsMenuArray[i].id === 'newsMenuBtn3'){
-                        menuDiv.innerHTML = `
-                        <div class="drop-question-container">
-                                <span class="news-menu-cp-head" id="drop-questions">Most asked questions</span>
-                                <div class="question-hidden" id="questions">   
-                                        <h2>Question 1</h2>
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
-                                        <h2>Question 2</h2>
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
-                                        <h2>Question 3</h2>
-                                        <p>Some text here</p>
-                                </div>
-                        </div>
-                        <div>
-                                <span class="news-menu-cp-head" id="policy">Policies</span>
-                                <div class="question-hidden" id="policies">   
-                                        <h2>Scam</h2>
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
-                                        <h2>Selling items on our site</h2>
-                                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
-                                        <h2>Return policy</h2>
-                                        <p>Some text here</p>
-                                </div>
-                        </div>
-                        <div>
-                                <span class="news-menu-cp-head" id="community">Community</span>
-                                <div class="question-hidden" id="communities">   
-                                        <h2>Our sponsors</h2>
-                                        <p><span>Sponsor 1</span></br>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
-                                        <p><span>Sponsor 2</span></br>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
-                                        <h2>Local community</h2>
-                                        <p>Some text here</p>
-                                        <h2>Foundations we are supporting</h2>
-                                        <p><span>Foundation 1</span></br>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
-                                        <p><span>Foundation 2</span></br>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
-                                        
-                                </div>
-                        </div>
-                        `;  
-                        menuDiv.style.display = 'flex';
-                                // simulate a click on #drop-questions so toggle runs immediately
-                                const dropBtn = menuDiv.querySelector('#drop-questions');
-                                if (dropBtn) {
-                                // Use a real click event so your delegated handler sees it. Fake click event
-                                dropBtn.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-                                }
-                                const policyDropBtn = menuDiv.querySelector('#policy');
-                                if(policyDropBtn){
-                                policyDropBtn.dispatchEvent(new MouseEvent('click', {bubbles: true}));
-                                }
-                                const communityDropBtn = menuDiv.querySelector('#community');
-                                if(communityDropBtn){
-                                        communityDropBtn.dispatchEvent(new MouseEvent('click', {bubbles: true}));
-                                }
-                        }else{return;}
-                             
-                }); 
-        }
-
-}mostAskedQuestions();
-
-/*For testing
-[...document.querySelectorAll('.contact-div > div')].forEach((el,i)=>{
-  const r = el.getBoundingClientRect();
-  const cs = getComputedStyle(el);
-  console.log(
-    `child ${i}: clientW=${el.clientWidth}px scrollW=${el.scrollWidth}px rectW=${Math.round(r.width)}px marginL=${cs.marginLeft} marginR=${cs.marginRight} white-space=${getComputedStyle(el).whiteSpace}`
-  );
-  // Also check inner img if present:
-  const img = el.querySelector('img');
-  if(img){
-    const ir = img.getBoundingClientRect();
-    console.log(`  img: natural(${img.naturalWidth}×${img.naturalHeight}) displayed(${Math.round(ir.width)}×${Math.round(ir.height)})`);
+  //Display content when burgerOpen button is clicked 
+  for(let i = 0; i < newsMenuArray2.length; i++){
+    newsMenuArray2[i].addEventListener('click', () => {  
+      if(newsMenuArray2[i].textContent === 'News'){ 
+                      
+      menuDiv.innerHTML =`
+      <span class="news-menu-cp-head">News</span>
+      <div class="news-menu-cp">
+              <span class="news-menu-cp-title">Title 1</span> 
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolorem praesentium at alias velit cum. Eius optio maiores delectus unde ipsam labore a numquam quod aperiam temporibus, corporis qui accusamus!</p>
+              <img src="images/category/communication-social-media-icons.jpg" alt="Trend icon">
+      </div>
+      <div class="news-menu-cp">
+              <span class="news-menu-cp-title">Title 2</span> 
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolorem praesentium at alias velit cum. Eius optio maiores delectus unde ipsam labore a numquam quod aperiam temporibus, corporis qui accusamus!</p>
+              <img src="images/category/couple-backpacks-rocks-sunset.jpg" alt="New release">
+      </div>
+      <div class="news-menu-cp">
+              <span class="news-menu-cp-title">Title 3</span> 
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolorem praesentium at alias velit cum. Eius optio maiores delectus unde ipsam labore a numquam quod aperiam temporibus, corporis qui accusamus!</p>
+              <img src="images/category/denim-sneakers-street-style.jpg" alt="Most ordered">
+      </div>
+      <div class="news-menu-cp">
+              <span class="news-menu-cp-title">Title 4</span> 
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Harum dolorem praesentium at alias velit cum. Eius optio maiores delectus unde ipsam labore a numquam quod aperiam temporibus, corporis qui accusamus!</p>
+              <img src="images/upper-panel/vecteezy_antique-table-holds-old-literature-rustic-elegance_24642428.jpg" alt="Creative styles">
+      </div>
+      `;          
+      }else if(newsMenuArray2[i].textContent ==='About us'){
+      menuDiv.innerHTML = `
+      <span class="news-menu-cp-head">About us</span>
+      <div class="about-us-menu-cp">
+              <div class="about-us-menu-cp-img">
+                      <img src="images/logo/agency.jpg" alt=""> 
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>    
+              </div>
+              <p class="menu-contact">Contact #: 000-0000-0000</p>
+              <p>Email: oOo@testmail.com</p>
+              <p>Address: somewhere down d street Ave.</p>
+              <div class="social-media">
+                      <img src="images/logo/facebook-svgrepo-com.svg" alt="facebook">
+                      <img src="images/logo/instagram-rounded-border-svgrepo-com.svg" alt="instagram">
+                      <img src="images/logo/linkedin-boerder-svgrepo-com.svg" alt="instagram">
+              </div>
+      </div>
+      `;
+      }else if(newsMenuArray2[i].textContent === 'FAQs'){
+      menuDiv.innerHTML = `
+      <div class="drop-question-container">
+              <span class="news-menu-cp-head" id="drop-questions">Most asked questions</span>
+              <div class="question-hidden" id="questions">   
+                      <h2>Question 1</h2>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
+                      <h2>Question 2</h2>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
+                      <h2>Question 3</h2>
+                      <p>Some text here</p>
+              </div>
+      </div>
+      <div>
+              <span class="news-menu-cp-head" id="policy">Policies</span>
+              <div class="question-hidden" id="policies">   
+                      <h2>Scam</h2>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
+                      <h2>Selling items on our site</h2>
+                      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
+                      <h2>Return policy</h2>
+                      <p>Some text here</p>
+              </div>
+      </div>
+      <div>
+              <span class="news-menu-cp-head" id="community">Community</span>
+              <div class="question-hidden" id="communities">   
+                      <h2>Our sponsors</h2>
+                      <p><span>Sponsor 1</span></br>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
+                      <p><span>Sponsor 2</span></br>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
+                      <h2>Local community</h2>
+                      <p>Some text here</p>
+                      <h2>Foundations we are supporting</h2>
+                      <p><span>Foundation 1</span></br>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
+                      <p><span>Foundation 2</span></br>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias temporibus quae corporis minima sapiente dolorum autem, exercitationem quod porro enim error ipsam sit ullam saepe distinctio perferendis incidunt deleniti accusamus!</p>
+                      
+              </div>
+      </div>
+      `;  
+      menuDiv.style.display = 'flex';
+              // simulate a click on #drop-questions so toggle runs immediately. 
+              //Use this since the click is not directly in the button but to the menuDiv container itself
+              //This works intandem with the click eventListener above. Cannot function alone
+              const dropBtn = menuDiv.querySelector('#drop-questions');
+              if (dropBtn) { //Only run the code if the element really exist
+              // Use a real click event so delegation handler sees it. Fake click event *Again the eventListenere is in menuDiv
+              dropBtn.dispatchEvent(new MouseEvent('click', { bubbles: true })); //Bubbles simulate real click event
+              }
+              const policyDropBtn = menuDiv.querySelector('#policy');
+              if(policyDropBtn){
+              policyDropBtn.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+              }
+              const communityDropBtn = menuDiv.querySelector('#community');
+              if(communityDropBtn){
+                      communityDropBtn.dispatchEvent(new MouseEvent('click', {bubbles: true}));
+              }
+      }else{return;}                 
+    }); 
   }
-});*/
+}mostAskedQuestions();

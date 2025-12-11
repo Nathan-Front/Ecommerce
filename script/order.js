@@ -262,39 +262,12 @@ function updateCartContent(itemId){
 //When web is reloaded/refreshed
 document.addEventListener('DOMContentLoaded', itemFromStorageOnReload);
 
-/*
-//For filter function
-function filterFunction(){
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const items = document.querySelectorAll('.list-of-items');
-
-    const checkedBoxes = Array.from(checkboxes)
-    .filter(checkbox => checkbox.checked)
-    .map(checkbox => checkbox.dataset.option);
-
-    items.forEach(item =>{
-        const filteredItem = item.getAttribute('data-filter-opt1');
-        const filteredItem2 = item.getAttribute('data-filter-opt2');
-        
-        if(checkboxes.length === 0){
-            item.classList.remove('show');
-        }else if(checkedBoxes.includes(filteredItem) || checkedBoxes.includes(filteredItem2)){
-            //item.classList.remove('show');
-            item.style = "display:block";
-            console.log('displayed');
-        }else{
-            //item.classList.add('show');
-            item.style = "display:none";
-            console.log("removed", filteredItem);
-        }
-    });
-}*/
-    const upperHeaderCart = document.querySelector('.mobile-header-cart');
-    const checkoutMenuPanel = document.querySelector('.check-out-cart-panel');
-    const upperHeaderCartTab = document.querySelector('.mobile-header-cart-tab');
 
 
-//Declare globally
+//Declare globally. These are also being used in responsive.js file
+const upperHeaderCart = document.querySelector('.mobile-header-cart');
+const checkoutMenuPanel = document.querySelector('.check-out-cart-panel');
+const upperHeaderCartTab = document.querySelector('.mobile-header-cart-tab');
 //Get the Id of container aside. This is for cart display
 const cartContentEmpty = document.getElementById('display-cart');
 //This will cover the page when cart is being dispayed. Prevent access to the main page
@@ -336,7 +309,6 @@ document.addEventListener('DOMContentLoaded', () =>{
         coverPage.style.display = 'none';
     }
     });
-    
     //When close cart button was clicked same with else condition above
     const closeCart = document.getElementById('close-cart');
     closeCart.addEventListener('click', function(){
@@ -353,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     });  
 });
 
-
+//Functio nfor the dropdwon of News button
 window.onload = function(){
     //Get all buttons
     const newsBtn = document.querySelectorAll('.new-item-display-button');
@@ -378,6 +350,7 @@ document.querySelectorAll('button[data-target]').forEach(function (el){
     });
 }); 
 
+//just popups for other buttons and links when clicked
 function upperSlideContentsBtn(){
     const clotheCategory = document.getElementById('clothe-category');
     const shoesCategory = document.getElementById('shoes-category');
@@ -407,7 +380,7 @@ function upperSlideContentsBtn(){
     });
     });
 }upperSlideContentsBtn();
-
+//Tried imlementing loop for the buttons on the lower panel items
 document.addEventListener('DOMContentLoaded', () =>{
     let lowerPanelBtn = document.querySelectorAll('.best-offer-button');
     lowerPanelBtn.forEach(function (Btn){
@@ -428,7 +401,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 document.addEventListener('DOMContentLoaded', ()=>{
     const lazyImages = document.querySelectorAll('img[data-src]');
     const crossIntersection = new IntersectionObserver(crossIntersectionHandler, {
-    rootMargin: "0px 0px 150px 0px", // preload 150px before image enters
+    rootMargin: "0px 0px 150px 0px", // preload 150px before image enters. It will start displaying imgages when scrolling gets near that value
     threshold: 0                    // fire early
     });
 
@@ -436,58 +409,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
         for(const entry of entries){
             if(entry.intersectionRatio > 0){
                 entry.target.src = entry.target.dataset.src;
-                //entry.target.src = entry.target.getAttribute('data-src');
+                //entry.target.src = entry.target.getAttribute('data-src'); //This line is the same as the code just above it
             }   
         }
     }
     lazyImages.forEach(img => crossIntersection.observe(img));
 });
-
-
-
-
-/*
-let currentIndex = 0;
-const itemContainers = document.querySelectorAll('.carousel-item');
-const dotBtn = document.querySelectorAll('.dot');
-function functionCarousel(index){
-    itemContainers[currentIndex].classList.remove('active');
-    dotBtn[currentIndex].classList.remove('active');
-
-    currentIndex = index;
-
-    itemContainers[currentIndex].classList.add('active');
-    dotBtn[currentIndex].classList.add('actives');
-
-}
-dotBtn.forEach((dot,index) => {
-    dot.addEventListener('click', () => functionCarousel(index));
-});
-functionCarousel(currentIndex);*/
-
-/*
-let carouselContainer = document.querySelector('.owl-carousel');
-let innerCarouselContainer = document.querySelector('.carousel-item');
-let pressed = false;
-let indexStartAt;
-let x;
-carouselContainer.addEventListener('mousedown', (e) => {
-    pressed = true;
-    indexStartAt = e.offsetX - innerCarouselContainer.offsetLeft;
-    carouselContainer.style.cursor = 'grabbing';
-});
-carouselContainer.addEventListener('mouseenter', () => {
-    carouselContainer.style.cursor = "grab";
-});
-carouselContainer.addEventListener('mouseup', () => {
-    carouselContainer.style.cursor = "grab";
-});
-carouselContainer.addEventListener('mousemove', (e) => {
-    if(!pressed) return;
-    e.preventDefault();
-    x = e.offsetX;
-    innerCarouselContainer.style.left = `${x - indexStartAt}px`;
-});*/
 
 //Start of display index
 let upperCarouselIndex = 0;
@@ -614,7 +541,6 @@ document.addEventListener('DOMContentLoaded', function() {
  }
 });
    
-
 document.addEventListener('DOMContentLoaded', function() {
  const carouselItemContainerShoes = document.querySelector('.owl-carousel-shoes');
  const arrowBtns = document.querySelectorAll('.owl-carousel-container-shoes i');
@@ -683,194 +609,6 @@ carouselItemContainerShoes.addEventListener('mousedown', dragStart);
 
 });
 
-/*
-const carouselSlides = document.querySelector('.owl-carousel');
-const carouselIndicators = document.querySelector('.dot-indicator');
-const indicators = document.querySelectorAll('.dot');
-let currentIndex = 0; // Tracks the current active slide
-
-// Function to update active indicator
-function updateIndicators() {
-  indicators.forEach((indicator, index) => {
-    if (index === currentIndex) {
-      indicator.classList.add('active');
-    } else {
-      indicator.classList.remove('active');
-    }
-  });
-}
-
-// Example: Handling slide changes (e.g., from dragging or next/prev buttons)
-function goToSlide(index) {
-  currentIndex = index;
-  // Logic to visually move the carousel to the selected slide
-  // For example, by adjusting the `transform: translateX()` of carouselSlides
-  carouselSlides.style.transform = `translateX(-${currentIndex * 28}%)`; // Assuming each slide is 100% width
-  updateIndicators();
-}
-
-// Initialize indicators
-updateIndicators();*/
-
-
-
-
-/*
-const dots = document.querySelectorAll('.dot');
-function updateActiveDot() {
-  const itemWidth = carouselItemContainer[0].offsetWidth; // Assuming all items have same width
-  const currentScroll = carouselContainer.scrollLeft;
-  const currentIndex = Math.round(currentScroll / itemWidth);
-
-  dots.forEach((dot, index) => {
-    if (index === currentIndex) {
-      dot.classList.add('active');
-    } else {
-      dot.classList.remove('active');
-    }
-  });
-}updateActiveDot();
-
-/*
-let slideIndex = 1;
-functionCarousel(slideIndex);
-function currenslide(n){
-    functionCarousel(slideIndex = n);
-}
-function functionCarousel(n){
-    let i;
-    let slides = document.getElementsByClassName('list-of-items');
-    let dots = document.getElementsByClassName('dot');
-    if(n > slides.length){
-        slideIndex = 1
-    }
-    if(n < 1){
-        slideIndex = slides.length;
-    }
-    for(i = 0; i < slides.length; i++){
-        slides[i].style.display = "none";
-    }
-    for(i = 0; i < dots.length; i++){
-        dots[i].className = dots[i].className.replace(' active', "");
-    }
-    slides[slideIndex-1].style.display = "flex";
-    slides[slideIndex].style.display = "flex";
-    slides[slideIndex+1].style.display = "flex";
-    dots[slideIndex-1].className += ' active';
-}*/
-/*
-const carouselInner = document.querySelector('.carousel-inner');
-const carouselItems = document.querySelectorAll('.carousel-item');
-const dots = document.querySelectorAll('.dot');
-
-let isDragging = false;
-let startX;
-let scrollLeft;
-
-carouselInner.addEventListener('mousedown', (e) => {
-  isDragging = true;
-  startX = e.pageX - carouselInner.offsetLeft;
-  scrollLeft = carouselInner.scrollLeft;
-});
-
-carouselInner.addEventListener('mouseleave', () => {
-  isDragging = false;
-});
-
-carouselInner.addEventListener('mouseup', () => {
-  isDragging = false;
-});
-
-carouselInner.addEventListener('mousemove', (e) => {
-  if (!isDragging) return;
-  e.preventDefault();
-  const x = e.pageX - carouselInner.offsetLeft;
-  const walk = (x - startX) * 2; // Adjust sensitivity
-  carouselInner.scrollLeft = scrollLeft - walk;
-  updateActiveDot();
-});
-
-function updateActiveDot() {
-  const itemWidth = carouselItems[0].offsetWidth; // Assuming all items have same width
-  const currentScroll = carouselInner.scrollLeft;
-  const currentIndex = Math.round(currentScroll / itemWidth);
-
-  dots.forEach((dot, index) => {
-    if (index === currentIndex) {
-      dot.classList.add('active');
-    } else {
-      dot.classList.remove('active');
-    }
-  });
-}
-
-// Initial active dot setting
-updateActiveDot();*//*
-const throttle = (func, time = 100) => {
-  let lastTime = 0;
-  return () => {
-    const now = new Date();
-    if (now - lastTime >= time) {
-      func();
-      time = now;
-    }
-  };
-};
-//window.addEventListener('scroll', throttle(validateHeader, 100));
-  let lastScrollTop = 0;
-  //const header = document.querySelector('header');
-/*
-const validateHeader = () => {
-    const windowY = window.scrollY;
-    const windowH = window.innerHeight;
-
-    if(windowY > windowH){
-        header.classList.add('is-fixed');
-        if(windowY > windowH + 40){
-            header.classList.add('is-animated');
-            if(windowY < lastScrollTop){
-                header.classList.add('scroll-up');
-            }else{
-                header.classList.remove('scroll-up');
-            }
-        }else{
-        header.classList.remove('scroll-up');
-        }
-    }else{
-        header.classList.remove('is-fixed', 'is-animated');
-    }
-    lastScrollTop = windowY;
-};*/
-
-/*
-  window.addEventListener('scroll', function() {
-    let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-    if (currentScroll > lastScrollTop) {
-      // Scrolling Down: Hide the header
-      header.classList.remove('scroll-up');
-    } else {
-      // Scrolling Up: Show the header
-      header.classList.add('scroll-up');
-    }
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // For Mobile or negative scrolling
-  });
-/*
-  var prevScrollpos = window.pageYOffset;
-window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-  var header = document.getElementById("display-on-scroll");
-
-  if (prevScrollpos > currentScrollPos) {
-    // Scrolling up, show the header
-    header.classList.remove("scroll-down-hide");
-  } else {
-    // Scrolling down, hide the header
-    header.classList.add("scroll-down-hide");
-  }
-  prevScrollpos = currentScrollPos;
-}*/
-
-
 var lastScrollTop = 0;
 const header = document.getElementById('display-on-scroll');
 //Allow only one update per animation frame (~16ms).
@@ -895,18 +633,3 @@ window.addEventListener('scroll', () => {
         ticking = true;
     }
 });
-/*
-var lastScrollTop = 0;
-//Get Title container
-const header =document.getElementById('display-on-scroll');
-window.addEventListener('scroll', function () {
-    if(window.innerWidth > 430){
-        var scrollTop = window.scrollY || document.documentElement.scrollTop;
-    if(scrollTop > lastScrollTop){//Basically when scrolling up
-        header.style.top ='-10%';//Display the title container
-    }else{
-        header.style.top ='0%';//Hide when scrolling down
-    }
-    lastScrollTop = scrollTop;
-    }
-});*/
