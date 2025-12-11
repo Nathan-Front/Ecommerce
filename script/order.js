@@ -423,7 +423,26 @@ document.addEventListener('DOMContentLoaded', () =>{
         });
     });
 })
-    
+
+//loading="lazy" JS style for images
+document.addEventListener('DOMContentLoaded', ()=>{
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    const crossIntersection = new IntersectionObserver(crossIntersectionHandler, {
+    rootMargin: "0px 0px 150px 0px", // preload 150px before image enters
+    threshold: 0                    // fire early
+    });
+
+    function crossIntersectionHandler(entries, observer){
+        for(const entry of entries){
+            if(entry.intersectionRatio > 0){
+                entry.target.src = entry.target.dataset.src;
+                //entry.target.src = entry.target.getAttribute('data-src');
+            }   
+        }
+    }
+    lazyImages.forEach(img => crossIntersection.observe(img));
+});
+
 
 
 
