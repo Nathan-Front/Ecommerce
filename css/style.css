@@ -64,6 +64,7 @@ li{
 .login-container{
     min-width: fit-content;
     display: flex;
+    flex-direction: column;
     width: auto;
     height: 100%;
     align-content: center;
@@ -928,6 +929,35 @@ li{
     to{
         margin-top: 8%;
     }
+}
+.logged-in-user{
+    width: auto;
+    margin: 0% 2% 0% auto;
+    display: flex;
+    align-items: center;
+}
+.logged-in-user p{
+    width: fit-content;
+    margin: 0;
+    padding-right: 2%;
+    font-size: 0.85em;
+}
+.user-name-logged{
+    width: fit-content;
+    font-size: 0.8em;
+    color: black;
+    font-weight: bold;
+}
+.logged-in-user button{
+    width: fit-content;
+    font-size: 0.8em;
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    white-space: nowrap;
+}
+.logged-in-user button:hover{
+    cursor: pointer;
 }
 @media only screen and (max-width: 550px){
         .category-panel{
@@ -1833,9 +1863,10 @@ overflow: auto;
     z-index: 10; 
 }  
 /*Prevents the overlay from scrolling once triggered*/
-    .no-scroll{
-        overflow: hidden;
-    }
+.no-scroll{
+    overflow: hidden;
+}
+
 #checkout-items{
     width: 100%;
     height: 90%;
@@ -3280,14 +3311,15 @@ footer div{
     font-weight: bold;
     margin-bottom: 5%;
 }
-.contact-div-contents a{
+.footer-links{
     width: fit-content;
     text-decoration: none;
     font-size: 0.8em;
     margin: 1% 0%;
     color: black;
 }
-.contact-div-contents a:hover{
+.footer-links:hover{
+    cursor: pointer;
    color: #87ceeb;
 }
 .alright-reserve{
@@ -3622,10 +3654,174 @@ footer div{
 
 }
 
-
-
 @media only screen and (max-width: 430px){
     .category-panel{
         display: none;
     }
+}
+
+
+#login-accnt-btn{
+    display: none;
+}
+ .login-account-slider{
+        width: 50dvw;
+        padding: 2% 0%;
+        display: flex !important;
+        flex-direction: column;
+        justify-items: center;
+        align-items: start;
+        grid-gap: 0;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #add8e6;
+        color: whitesmoke;
+        z-index: 99;
+        animation: createAcc 100ms ease-in-out;    
+    }
+    @keyframes createAcc {
+        from{
+            width: 0dvw;
+        }
+        to{
+            width: 50dvw;
+        }
+    }
+    .login-accnt-page label{
+        margin: 0% 0% 0% 5%;
+        color: black;
+        font-size: 1em;
+    }
+    .login-accnt-page label b{
+        align-content: start;
+    }
+    .login-accnt-page input{
+        width: 90%;
+        margin: 1% auto 0% auto;
+    }
+    .login-accnt-page label:nth-child(3){
+        margin: 3% 0% 0% 5%;
+    }
+    .login-create{
+        width: 90%;
+        display: flex;
+        margin: 0% auto;
+    }
+    .login-create button{
+        width: 40%;
+        margin: 3% auto 5% auto;
+    }
+    .login-create button:first-child{
+        margin:5% auto 5% 0%;
+    }
+    .login-create button:last-child{
+        margin:5% 0% 5% auto;
+    }
+    .login-remember-me{
+        width: auto;
+        display: flex;
+    }
+    .login-remember-me input{
+        width: 1em;
+    }
+    .login-remember-me span{
+        width: fit-content;
+        text-align: left;
+        display: flex;
+        flex-wrap: nowrap;
+        font-size: 0.7em;
+    }
+    .cancel-forgot-container{
+        width: 90%;
+        display: flex;
+        justify-items: start;
+        margin: 5% auto 0% auto;
+    }
+    .cancel-forgot-container button{
+        width: 30%;
+        margin: 0;
+    }
+    .cancel-forgot-container p{
+        margin: 0% 0% 0% auto;
+        color: black;
+        right: 0;
+    }
+    .cancel-forgot-container p a{
+        text-decoration: none;
+    }
+
+#create-accnt-btn{
+    display: none;
+}
+.create-account-slider{
+    width: 50dvw;
+    padding: 2% 0%;
+    display: flex !important;
+    flex-direction: column;
+    justify-items: center;
+    align-items: start;
+    grid-gap: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #add8e6;
+    color: whitesmoke;
+    z-index: 99;
+    animation: createAcc 100ms ease-in-out;    
+}
+@keyframes createAcc {
+    from{
+        width: 0dvw;
+    }
+    to{
+        width: 50dvw;
+    }
+}
+.create-accnt-page label{
+    margin: 0% 0% 0% 5%;
+    color: black;
+    font-size: 1em;
+}
+.create-accnt-page label b{
+    align-content: start;
+}
+.create-accnt-page input{
+    width: 90%;
+    margin: 1% auto 0% auto;
+}
+.create-accnt-page label{
+    margin: 3% 0% 0% 5%;
+}
+/*When email input is wrong*/
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin: 0% 0% 0% 5%;
+}
+input.error-border {
+  border: 2px solid red;
+}
+.login-create{
+    width: 90%;
+    display: flex;
+    margin: 0% auto;
+}
+.login-create button{
+    width: 40%;
+    margin: 3% auto 5% auto;
+}
+.login-create button:first-child{
+    margin:5% auto 5% 0%;
+}
+.login-create button:last-child{
+    margin:5% 0% 5% auto;
+}
+.cancel-forgot-container{
+    width: 90%;
+    display: flex;
+    justify-items: start;
+    margin: 5% auto 0% auto;
 }

@@ -263,7 +263,6 @@ function updateCartContent(itemId){
 document.addEventListener('DOMContentLoaded', itemFromStorageOnReload);
 
 
-
 //Declare globally. These are also being used in responsive.js file
 const upperHeaderCart = document.querySelector('.mobile-header-cart');
 const checkoutMenuPanel = document.querySelector('.check-out-cart-panel');
@@ -393,6 +392,14 @@ document.addEventListener('DOMContentLoaded', () =>{
     lowerPanelCardLinks.forEach(function (aTag){
         aTag.addEventListener('click', ()=>{
             alert('Link to ' + aTag.textContent + ' page');
+        });
+    });
+
+    //This is for the links of footer
+    let footerLnks = document.querySelectorAll('.footer-links');
+    footerLnks.forEach(function (foot){
+        foot.addEventListener('click', ()=>{
+            alert('Link to ' + foot.textContent + ' page');
         });
     });
 })

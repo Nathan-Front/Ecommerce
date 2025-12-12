@@ -3,7 +3,7 @@ const titlePanel = document.querySelector('.title-cart-panel');
 const burgerLinks = document.querySelector("#burger-menu");
 const burgerOpen = document.getElementById("burger");
 const burgerClose = document.getElementById("burger-close");
- const menuHomeBtn = document.getElementById('newsHomeBtn');
+const menuHomeBtn = document.getElementById('newsHomeBtn');
 document.addEventListener("DOMContentLoaded", mobileDesktopInit);
 window.addEventListener("resize", mobileDesktopInit);
 
@@ -168,18 +168,186 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
       }                  
 });
-
-//Just a message whe login/create account was clicked
-function loginCreateAccnt(){
-  const loginBtn = document.getElementById('sign-in');
-  const createAccBtn = document.getElementById('register');
-  loginBtn.addEventListener('click', () =>{
-    alert('Link to login page');
+//Use Built-in API hash of the browser *This is for front-end only no server/DB
+//Do not show the exact password in the localStorage
+  async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+//Login/Create account panel
+const loginAccBtn = document.getElementById('sign-in');
+const loginAccountPage = document.getElementById('login-accnt-btn');
+const closeLoginAccntPage = document.getElementById('login-close-createAccnt-page');
+const createAccBtn = document.getElementById('register');
+const createAccountPage = document.getElementById('create-accnt-btn');
+const closeCreateAccntPage =document.getElementById('close-createAccnt-page');
+const noAccntYetBtn = document.getElementById('link-create-Btn');
+//Display login panel
+document.addEventListener('DOMContentLoaded', ()=>{
+  loginAccBtn.addEventListener('click', ()=>{
+  const existingLoggedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
+  if(existingLoggedUser){
+    alert('Already logged in');
+    return;
+  }
+    loginAccountPage.classList.add('login-account-slider');
+    coverPage.style.display = 'flex'; 
+    document.body.classList.add("no-scroll"); 
   });
+  //Close login panel
+  closeLoginAccntPage.addEventListener('click', ()=>{
+    loginAccountPage.classList.remove('login-account-slider');
+    coverPage.style.display = 'none'; 
+    document.body.classList.remove("no-scroll"); 
+  });
+  //Redirect to create acount panel
+  noAccntYetBtn.addEventListener('click', ()=>{
+    loginAccountPage.classList.remove('login-account-slider');
+    createAccountPage.classList.add('create-account-slider'); 
+    coverPage.style.display = 'flex'; 
+    document.body.classList.add("no-scroll"); 
+  });
+  //Display create account panel
   createAccBtn.addEventListener('click', () =>{
-    alert('Link to create account page');
+    createAccountPage.classList.add('create-account-slider'); 
+    coverPage.style.display = 'flex'; 
+    document.body.classList.add("no-scroll"); 
   });
-}loginCreateAccnt();
+  //Close create account panel
+  closeCreateAccntPage.addEventListener('click', ()=>{
+    createAccountPage.classList.remove('create-account-slider');
+    coverPage.style.display = 'none'; 
+    document.body.classList.remove("no-scroll"); 
+  });
+
+  //Create account function
+  const createBtn = document.getElementById('create-Btn');
+  const createUName = document.getElementById('input-uName');
+  const createPass = document.getElementById('input-pass');
+  const emailInput = document.getElementById('input-email');
+  createBtn.addEventListener('click', async ()=>{
+    document.querySelectorAll("small.error").forEach(el => el.textContent = "");
+    document.querySelectorAll("input").forEach(el => el.classList.remove("error-border"));
+    let isValid = true;
+    if (!validateEmail(emailInput.value)) {
+        showError(emailInput, "Enter a valid email");
+        isValid = false;
+        return;
+    }
+    const hashedPass = await hashPassword(createPass.value.trim()); //This is the hash at the top
+    const newId = new Date().getTime(); //Use this again to represent Id for created user
+    const storeUser = {
+      userId: newId,
+      userName: createUName.value,
+      userPass: hashedPass, //instead of input.value we use hashed password
+      email: emailInput.value
+    };
+    //Function to search if such user account is already taken
+    let userStorage = JSON.parse(localStorage.getItem('accountStorage'))||[];
+    let userNameExist = false; //Flag for searching username 
+    let userPassExist = false; //Flag for searching password
+    for(let i = 0; i < userStorage.length; i++){
+      if(userStorage[i].userName === storeUser.userName){
+        userNameExist = true;
+      }
+      if(userStorage[i].userPass === storeUser.userPass){
+        userPassExist = true;
+      }
+    }
+    //Messages based to each flag condition
+    if(createUName.value === "" || createPass.value === ""){
+      alert('Input value is needed');
+      return;
+    }
+    if(userNameExist){
+      alert('Username already taken');
+      createUName.value = '';
+      return;
+    }
+    if(userPassExist){
+      alert('Password already taken');
+      createPass.value = '';
+      return;
+    }
+    //If username/password is not yet in the storage we add it to storage
+    userStorage.push(storeUser);
+    localStorage.setItem('accountStorage', JSON.stringify(userStorage));
+    createUName.value = '';
+    createPass.value = '';
+    emailInput.value = '';
+    createAccountPage.classList.remove('create-account-slider');
+    coverPage.style.display = 'none'; 
+    document.body.classList.remove("no-scroll"); 
+  });
+});
+function validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email)
+}
+function showError(input, message) {
+    const small = input.parentElement.querySelector("small");
+    small.textContent = message;
+    input.classList.add("error-border");
+}
+//Login function  
+function loginUser(){
+  const loginBtn = document.getElementById('login-to-main-button');
+  const loginUserName = document.getElementById('input-login-uName');
+  const loginUserPass = document.getElementById('input-login-pass');
+  const rememberMeCheckbox = document.getElementById('remember-me');
+  const rememberMe = JSON.parse(localStorage.getItem('rememberUserName'));
+  if(rememberMe){
+    loginUserName.value = rememberMe;
+    rememberMeCheckbox.checked = true;
+  }
+  loginBtn.addEventListener("click", async () => {
+  const username = loginUserName.value.trim();
+  const password = loginUserPass.value.trim();
+  const userStorage = JSON.parse(localStorage.getItem('accountStorage')) || [];
+  const hashedInput = await hashPassword(password);
+  const user = userStorage.find(u => 
+      u.userName === username && 
+      u.userPass === hashedInput
+  );
+   const loggedInUser = document.getElementById('user-to-log');
+  if (user) {
+    loggedInUser.textContent = user.userName; //Display username
+    localStorage.setItem('saveLoggedInUser',JSON.stringify(user)); //Save that logged in user
+    if (rememberMeCheckbox.checked) {
+            localStorage.setItem("rememberUserName", JSON.stringify(username)); //Save as remember me
+        } else {
+            localStorage.removeItem("rememberUserName"); //Do not save as remember me
+        }
+    loginUserPass.value = ''; 
+    loginAccountPage.classList.remove('login-account-slider');
+    coverPage.style.display = 'none'; 
+    document.body.classList.remove("no-scroll");
+  } else {
+    alert("Invalid username or password");
+  }
+    
+  });
+}loginUser();
+//reload remain user display just like in the cart and counter
+const loggedInUser = document.getElementById('user-to-log');
+const savedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
+if (savedUser) {
+  loggedInUser.textContent = savedUser.userName;
+}
+//Signout function
+function logoutUser(){
+  const signOut = document.getElementById('sign-out');
+  signOut.addEventListener('click', () =>{
+    localStorage.removeItem('saveLoggedInUser');
+    loggedInUser.textContent = 'Guest';
+  });
+}logoutUser();
+
+
 
 //Carousel of the upper panel items on mobile viewport
 //This function is different from when on desktop viewport
@@ -351,13 +519,13 @@ function mobileMainPanelSlider(){
     updateDots();
   }
 
-  // Touch handlers (basic swipe)
+  //Touch handlers (basic swipe)
   list.addEventListener('touchstart', (e) => {
     if (animating) return;
     const t = e.touches[0];
     startX = t.clientX;
     isDragging = true;
-    list.style.transition = 'none'; // disable transition while dragging
+    list.style.transition = 'none'; //disable transition while dragging
   }, {passive: true});
 
   list.addEventListener('touchmove', (e) => {
@@ -365,7 +533,7 @@ function mobileMainPanelSlider(){
     const t = e.touches[0];
     const { fullSlideWidth } = getSlideMetrics();
     const delta = t.clientX - startX;
-    // show follow-drag feedback by applying delta to currentTranslate
+    //show follow-drag feedback by applying delta to currentTranslate
     updateTransform(currentTranslate + delta, false);
   }, {passive: true});
 
@@ -375,7 +543,7 @@ function mobileMainPanelSlider(){
     const diff = endX - startX;
     isDragging = false;
 
-    // threshold
+    //threshold
     const THRESH = 50;
     if (diff > THRESH) {
       goToIndex(index - 1);
