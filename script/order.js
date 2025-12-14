@@ -93,13 +93,13 @@ function itemFromStorageOnReload(){
         li.id = 'for-update-cart';
         li.innerHTML = `
          <div class="item-descript-cart">
-                        <p>Item name: <span> ${item.name}</span></p>
-                        <p>Item price $<span id="item-price">${item.price}</span></p>
-                        <p>seller: <span>ABC comp.</span></p>
-                        <img src="${item.image}" alt="Product image">
-                        <p>Size:<span class="selected-size">${item.size}</span></p>
-                        <p>Quantity;<span> ${item.quantity}</span></p>
-                        <p>Total: <span>$${item.total}</span></p>                       
+            <p>Item name:<span> ${item.name}</span></p>
+            <p>Item price:<span id="item-price">$ ${item.price}</span></p>
+            <p>seller:<span>ABC comp.</span></p>
+            <img src="${item.image}" alt="Product image">
+            <p>Size:<span class="selected-size">${item.size}</span></p>
+            <p>Quantity:<span> ${item.quantity}</span></p>
+            <p>Total:<span>$ ${item.total}</span></p>                       
          </div>
          <div class="item-cart-button-cart" id="cart-delete-button">
                             <button onclick="deleteItemFromSession(${item.StoredId})"  data-item-id="${item.StoredId}" class="delete-item-from-cart">Delete</button>
@@ -205,22 +205,30 @@ function deleteItemFromSession(itemId){
 document.addEventListener('DOMContentLoaded', () =>{
 const payment = document.getElementById('to-payment');
 if(!payment) return;
-payment.addEventListener('click', function(){
-    let tPrice = 0;
-    const itemCount = document.getElementById("added-to-cart");
-    let totalCheckoutPrice = JSON.parse(sessionStorage.getItem('itemFromCart'));
-    if(totalCheckoutPrice === null || "" || totalCheckoutPrice.length === 0){
-        alert('No item in the cart'); 
-        return;
-    }
-    totalCheckoutPrice.forEach(item =>{
-        if(itemCount !== 0 || itemCount !== "")
-        {
-        tPrice += item.total;
+    payment.addEventListener('click', function(){
+        let tPrice = 0;
+        const itemCount = document.getElementById("added-to-cart");
+        let totalCheckoutPrice = JSON.parse(sessionStorage.getItem('itemFromCart'));
+        //Check if there is item in the cart
+        if(totalCheckoutPrice === null || "" || totalCheckoutPrice.length === 0){
+            alert('No item in the cart'); 
+            return;
         }
-    });
-    alert(`Total price: $${tPrice}`);  
- });
+        //Check if user is logged in before displaying total payment
+        if(loggedInUser.textContent === 'Guest' || loggedInUser.textContent === "" || loggedInUser.textContent === null){
+            cartContentEmpty.classList.remove('navActive');
+            loginAccountPage.classList.add('login-account-slider');
+            coverPage.style.display = 'flex'; 
+            document.body.classList.add("no-scroll"); 
+        }else{
+        totalCheckoutPrice.forEach(item =>{
+            if(itemCount !== 0 || itemCount !== ""){
+                tPrice += item.total;
+            }
+        });
+            alert(`Total price: $${tPrice}`);  
+        }
+     });
  });
 
 function updateCartContent(itemId){
@@ -242,13 +250,13 @@ function updateCartContent(itemId){
         li.id = 'for-update-cart';
         li.innerHTML = `
          <div class="item-descript-cart">
-                        <p>Item name: ${item.name}</p>
-                        <p>Item price $<span id="item-price">${item.price}</span></p>
-                        <p>seller: ABC comp.</p>
-                        <img src="${item.image}" alt="Product image">
-                        <p>Size:<span class="selected-size">${item.size}</span></p>
-                        <p>Quantity; ${item.quantity}</p>
-                        <p>Total: $${item.total}</p>                       
+            <p>Item name:<span> ${item.name}</span></p>
+            <p>Item price:<span id="item-price">$ ${item.price}</span></p>
+            <p>seller:<span>ABC comp.</span></p>
+            <img src="${item.image}" alt="Product image">
+            <p>Size:<span class="selected-size">${item.size}</span></p>
+            <p>Quantity:<span> ${item.quantity}</span></p>
+            <p>Total:<span>$ ${item.total}</span></p>                       
          </div>
          <div class="item-cart-button-cart" id="cart-delete-button">
                             <button onclick="deleteItemFromSession(${item.StoredId})" data-item-id='${item.StoredId}' class="delete-item-from-cart">Delete</button>
@@ -296,12 +304,17 @@ document.addEventListener('DOMContentLoaded', () =>{
         if(window.innerWidth <= 540){
             cartContentEmpty.style.zIndex = '99';
         }
-        //Allows only one slide page at a time
-        if(burgerLinks.classList.contains('burger-links') || loginPage.classList.contains('log-in')){
+        //Allows only one panel/form at a time
+        if(burgerLinks.classList.contains('burger-links') 
+            || loginPage.classList.contains('log-in')
+            || mobileLoggedInPanel.classList.contains('mobile-Login-panel')
+            || createForm.classList.contains('create-account-slider')){
             burgerLinks.classList.remove('burger-links');
             burgerClose.style.display = 'none'; 
             burgerOpen.style.display = 'flex'; 
             loginPage.classList.remove('log-in');
+            mobileLoggedInPanel.classList.remove('mobile-Login-panel');
+            createForm.classList.remove('create-account-slider');
         }       
     }else{
         cartContentEmpty.classList.remove('navActive');
@@ -324,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () =>{
     });  
 });
 
-//Functio nfor the dropdwon of News button
+//Function for the dropdown of News button
 window.onload = function(){
     //Get all buttons
     const newsBtn = document.querySelectorAll('.new-item-display-button');
@@ -351,6 +364,9 @@ document.querySelectorAll('button[data-target]').forEach(function (el){
 
 //just popups for other buttons and links when clicked
 function upperSlideContentsBtn(){
+    //during Desktop.tablet viewport
+    const upperPanelBtns = document.querySelectorAll('.upper-carousel');
+    //During mobile viewport
     const clotheCategory = document.getElementById('clothe-category');
     const shoesCategory = document.getElementById('shoes-category');
     const offerCategory = document.getElementById('offer-category');
@@ -359,6 +375,16 @@ function upperSlideContentsBtn(){
     const shoesDaily = document.getElementById('shoes-daily');
 
     document.addEventListener('DOMContentLoaded', () =>{
+    upperPanelBtns.forEach((btn) =>{
+        btn.addEventListener('click', ()=>{
+            const panel = btn.closest('.upper-carousel');
+            const upperPanelTitle = panel.querySelector('.main-panel-upper-h2').textContent;
+            alert('Link to ' + upperPanelTitle + ' page');
+        });
+    });
+        
+
+    
     clotheCategory.addEventListener('click', () =>{
         alert('Link to Clothes category page');
     });
@@ -379,7 +405,7 @@ function upperSlideContentsBtn(){
     });
     });
 }upperSlideContentsBtn();
-//Tried imlementing loop for the buttons on the lower panel items
+//Tried imlpementing loop for the buttons on the lower panel items
 document.addEventListener('DOMContentLoaded', () =>{
     let lowerPanelBtn = document.querySelectorAll('.best-offer-button');
     lowerPanelBtn.forEach(function (Btn){

@@ -40,24 +40,25 @@
             <a href=""><img src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
         </div>
     </nav>
-    <div class="top-panel-cp top-panel">
+    <!--For 430px and below-->
+    <form class="top-panel-cp top-panel" id="mobile-form-submit">
         <img src="images/logo/letter-uppercase-square-n-svgrepo-com.svg" alt="company logo">
         <h1>otare</h1>
-        <img id="login-button" src="images/logo/profile-user-svgrepo-com.svg" alt="login button">
+        <img id="login-panel-button" src="images/logo/profile-user-svgrepo-com.svg" alt="login button">
         <div class="login-page-hidden" id="login-page">
             <img id="close-login-page" src="images/logo/close-cross-svgrepo-com.svg" alt="">
             <label for="uname"><b>Username</b></label>
-            <input type="text" placeholder="input Username" name="uname" required>
+            <input type="text" placeholder="input Username" name="uname" id="input-user-name">
             <label for="pass"><b>Password</b></label>
-            <input type="text" placeholder="input password" name="pass">
-            <button>Login</button>
-            <button>Create account</button>
+            <input type="text" placeholder="input password" name="pass" id="input-user-pass">
+            <button type="submit" id="mobile-login-button">Login</button>
+            <button type="button" id="mobile-redirect-to-create-form">Don't have account yet?</button>
             <label>
-                <input type="checkbox" checked="checked" name="remember">
-                <span>Remember me</span> 
+                <input type="checkbox" checked="checked" name="remember" id="mobile-remember-me">
+                <span >Remember me</span> 
             </label>
             <div class="cancel-forgot">
-                <button>Cancel</button>
+                <button type="button" id="mobile-cancel-form">Cancel</button>
                 <p>Forgot <a href="">password?</a></p>
             </div>
             <div class="alright-reserve-acc-footer">
@@ -67,15 +68,34 @@
                 <a href=""><img src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
             </div>
         </div>
+    </form>
+    <div class="logged-in-user-info-panel" id="mogile-logged-in-panel">
+        <img src="images/logo/close-cross-svgrepo-com.svg" alt="close user infor panel" class="close-logged-in-user-panel" id="close-user-info-panel">
+        <div class="profile-picture">
+            <img src="" alt="profile picture" class="profile-pic" id="profile-picture">
+            <input type="file" id="profile-pic-upload" accept="image/*" hidden/>
+            <img src="images//logo/camera-add-photo-svgrepo-com.svg" alt="upload profile pic" class="upload-profile-pic" id="upload-pic-Btn">
+        </div>
+        <p>Hello!</p>
+        <h1 class="logged-in-user-name" id="mobile-user-to-log">Guest</h1>
+        <button class="logout-button" id="mobile-signout-user">Sign out</button>
+        <div class="alright-reserve-acc-footer" id="mobile-user-account-info-panel">
+            <p>© Nov-2025, Ⓝ Notare, Jonathan P. Tindungan</p>
+            <a href=""><img src="images/category/hot items/facebook-svgrepo-com.svg" alt="Facebook"></a>
+            <a href=""><img src="images/category/hot items/instagram-rounded-border-svgrepo-com.svg" alt="Instagram"></a>
+            <a href=""><img src="images/category/hot items/linkedin-boerder-svgrepo-com.svg" alt="LinkedIn"></a>
+        </div>
     </div>
-    <div class="login-accnt-page" id="login-accnt-btn">
+
+    <!--For 431px and above-->
+    <form class="login-accnt-page" id="login-accnt-btn" novalidate>
             <label for="uname"><b>Username</b></label>
-            <input id="input-login-uName" type="text" placeholder="input Username" name="uname" required>
+            <input id="input-login-uName" type="text" placeholder="input Username" name="uname">
             <label for="pass"><b>Password</b></label>
             <input id="input-login-pass" type="text" placeholder="input password" name="pass">
             <div class="login-create">
                 <button id="login-to-main-button">Login</button>
-                <button id="link-create-Btn">Dont have account yet?</button>
+                <button type="button" id="link-create-Btn">Dont have account yet?</button>
             </div>
             <label class="login-remember-me">
                 <input id="remember-me" type="checkbox" checked="checked" name="remember">
@@ -83,32 +103,32 @@
             </label>
             <div class="cancel-forgot-container">
                 <button id="login-close-createAccnt-page">Cancel</button>
-                <p>Forgot <a href="">password?</a></p>
+                <p>Forgot <a id="forgot-password">password?</a></p>
             </div>
-    </div>
-    <div class="create-accnt-page" id="create-accnt-btn">
+    </form>
+    <form class="create-accnt-page" id="create-accnt-btn" novalidate>
             <label for="uname"><b>Username</b></label>
-            <input id="input-uName" type="text" placeholder="input Username" name="uname" required>
+            <input id="input-uName" type="text" placeholder="input Username" name="uname">
             <label for="pass"><b>Password</b></label>
             <input id="input-pass" type="text" placeholder="input password" name="pass">
             <label for="pass"><b>E-mail address</b></label>
             <input id="input-email" type="text" placeholder="input password" name="pass">
             <small class="error"></small>
             <div class="login-create">
-                <button id="create-Btn">Create account</button>
+                <button >Create account</button>
                 <button id="close-createAccnt-page">Cancel</button>
             </div>
-    </div>
+    </form>
     <!--For 430px and below-->
     <div class="mobile-header">
         <img src="images/logo/letter-uppercase-square-n-svgrepo-com.svg" alt="company logo">
         <h1>otare</h1>
-        <img id="login-button-menu-header" src="images/logo/profile-user-svgrepo-com.svg" alt="login button">
+        <img id="login-panel-button-menu-header" src="images/logo/profile-user-svgrepo-com.svg" alt="login button">
     </div>
     <div class="mobile-header-cart">
         <img src="images/logo/letter-uppercase-square-n-svgrepo-com.svg" alt="company logo">
         <h1>otare</h1>
-        <img id="login-button-menu-header-cart" src="images/logo/profile-user-svgrepo-com.svg" alt="login button">
+        <img id="login-panel-button-menu-header-cart" src="images/logo/profile-user-svgrepo-com.svg" alt="login button">
     </div>
     <!--For 540px-->
     <div class="mobile-header-cart-tab">

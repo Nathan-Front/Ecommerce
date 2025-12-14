@@ -42,9 +42,15 @@ function enableMobile() {
     titlePanel.append(burgerOpen);
     //Burger open button click event
     burgerOpen.onclick = () => {
-      if(cartContentEmpty.classList.contains('navActive') || loginPage.classList.contains('log-in')){
+      //Allows only one panel/form at a time
+      if(cartContentEmpty.classList.contains('navActive') 
+        || loginPage.classList.contains('log-in') 
+        || mobileLoggedInPanel.classList.contains('mobile-Login-panel')
+        || createForm.classList.contains('create-account-slider')){
         cartContentEmpty.classList.remove('navActive');
         loginPage.classList.remove('log-in');
+        mobileLoggedInPanel.classList.remove('mobile-Login-panel');
+        createForm.classList.remove('create-account-slider');
       }
       burgerOpen.style.display = 'none';  
       burgerLinks.classList.add("burger-links");
@@ -94,36 +100,75 @@ function enableDesktop() {
 
 const loginPage = document.getElementById('login-page');
 const closeLoginPage = document.getElementById('close-login-page');
+ const mobileLoggedInPanel = document.getElementById('mogile-logged-in-panel');
 document.addEventListener("DOMContentLoaded", () =>{
 
-        const loginBtn = document.getElementById('login-button');
-        const loginBtnMenu = document.getElementById('login-button-menu-header');
-        const loginBtnMenuCart = document.getElementById('login-button-menu-header-cart');       
+        const loginBtn = document.getElementById('login-panel-button');
+        const loginBtnMenu = document.getElementById('login-panel-button-menu-header');
+        const loginBtnMenuCart = document.getElementById('login-panel-button-menu-header-cart');       
         
-        //For diplaying login page
-        if(loginBtn){
+        //For diplaying login page 430px and below
+       
+        const userLog = document.getElementById('mobile-user-to-log').textContent;
+       
+        //if(loginBtn){
         loginBtn.addEventListener('click', () =>{
-            loginPage.classList.add('log-in');
+          if(userLog !== 'Guest' || userLog === ""){
+              mobileLoggedInPanel.classList.add('mobile-Login-panel');
+              document.body.classList.add('no-scroll');
+              coverPage.style.display = 'flex';
+          }else{
+              loginPage.classList.add('log-in');
+              document.body.classList.add('no-scroll');
+              coverPage.style.display = 'flex';
+          }    
+        });
+          //}
+        const closeUserInfo = document.getElementById('close-user-info-panel');
+          closeUserInfo.addEventListener('click', ()=>{
+              mobileLoggedInPanel.classList.remove('mobile-Login-panel');
+              document.body.classList.remove('no-scroll');
+              coverPage.style.display = 'none';
+          });
+         //if(loginBtnMenu){
+        loginBtnMenu.addEventListener('click', () =>{
+          if(userLog !== 'Guest' || userLog === ""){
+            loginPage.classList.remove('log-in');
             document.body.classList.add('no-scroll');
             coverPage.style.display = 'flex';
-        });
-          }
-         if(loginBtnMenu){
-        loginBtnMenu.addEventListener('click', () =>{
+            cartContentEmpty.classList.remove('navActive');
+            burgerLinks.classList.remove("burger-links");
+            burgerClose.style.display = 'none';
+            burgerOpen.style.display = 'flex'; 
+              mobileLoggedInPanel.classList.add('mobile-Login-panel');
+
+          }else{
             loginPage.classList.add('log-in');
             document.body.classList.add('no-scroll');
             cartContentEmpty.classList.remove('navActive');
             burgerLinks.classList.remove("burger-links");
             burgerClose.style.display = 'none';
             burgerOpen.style.display = 'flex'; 
+          } 
+            
         });
-      }
+      //}
       if(loginBtnMenuCart){
         loginBtnMenuCart.addEventListener('click', () =>{
-            loginPage.classList.add('log-in');
+          if(userLog !== 'Guest' || userLog === ""){
+            loginPage.classList.remove('log-in');
+            document.body.classList.add('no-scroll');
+            coverPage.style.display = 'flex';
+            cartContentEmpty.classList.remove('navActive');
+            burgerLinks.classList.remove("burger-links");
+              mobileLoggedInPanel.classList.add('mobile-Login-panel');
+          }else{
+              loginPage.classList.add('log-in');
             document.body.classList.add('no-scroll');
             cartContentEmpty.classList.remove('navActive');
             burgerLinks.classList.remove("burger-links");
+          }
+            
         });
       }
       //For closing login page
@@ -168,8 +213,10 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
       }                  
 });
+
+
 //Use Built-in API hash of the browser *This is for front-end only no server/DB
-//Do not show the exact password in the localStorage
+//Does not show the exact password in the localStorage
   async function hashPassword(password) {
   const encoder = new TextEncoder();
   const data = encoder.encode(password);
@@ -183,10 +230,10 @@ const loginAccBtn = document.getElementById('sign-in');
 const loginAccountPage = document.getElementById('login-accnt-btn');
 const closeLoginAccntPage = document.getElementById('login-close-createAccnt-page');
 const createAccBtn = document.getElementById('register');
-const createAccountPage = document.getElementById('create-accnt-btn');
+const createBtn = document.getElementById('create-accnt-btn'); //Create account form
 const closeCreateAccntPage =document.getElementById('close-createAccnt-page');
 const noAccntYetBtn = document.getElementById('link-create-Btn');
-//Display login panel
+//Display login/create panel
 document.addEventListener('DOMContentLoaded', ()=>{
   loginAccBtn.addEventListener('click', ()=>{
   const existingLoggedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
@@ -198,7 +245,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     coverPage.style.display = 'flex'; 
     document.body.classList.add("no-scroll"); 
   });
-  //Close login panel
+  //Close login panel/form
   closeLoginAccntPage.addEventListener('click', ()=>{
     loginAccountPage.classList.remove('login-account-slider');
     coverPage.style.display = 'none'; 
@@ -207,81 +254,84 @@ document.addEventListener('DOMContentLoaded', ()=>{
   //Redirect to create acount panel
   noAccntYetBtn.addEventListener('click', ()=>{
     loginAccountPage.classList.remove('login-account-slider');
-    createAccountPage.classList.add('create-account-slider'); 
+    createBtn.classList.add('create-account-slider'); 
     coverPage.style.display = 'flex'; 
     document.body.classList.add("no-scroll"); 
   });
   //Display create account panel
   createAccBtn.addEventListener('click', () =>{
-    createAccountPage.classList.add('create-account-slider'); 
+    createBtn.classList.add('create-account-slider'); 
     coverPage.style.display = 'flex'; 
     document.body.classList.add("no-scroll"); 
   });
   //Close create account panel
-  closeCreateAccntPage.addEventListener('click', ()=>{
-    createAccountPage.classList.remove('create-account-slider');
+  closeCreateAccntPage.addEventListener('click', (e)=>{
+    e.preventDefault();
+    createBtn.classList.remove('create-account-slider');
     coverPage.style.display = 'none'; 
     document.body.classList.remove("no-scroll"); 
   });
-
+ 
   //Create account function
-  const createBtn = document.getElementById('create-Btn');
   const createUName = document.getElementById('input-uName');
   const createPass = document.getElementById('input-pass');
   const emailInput = document.getElementById('input-email');
-  createBtn.addEventListener('click', async ()=>{
+  createBtn.addEventListener('submit', async (e)=>{
+    e.preventDefault();
     document.querySelectorAll("small.error").forEach(el => el.textContent = "");
     document.querySelectorAll("input").forEach(el => el.classList.remove("error-border"));
-    let isValid = true;
-    if (!validateEmail(emailInput.value)) {
-        showError(emailInput, "Enter a valid email");
-        isValid = false;
-        return;
-    }
-    const hashedPass = await hashPassword(createPass.value.trim()); //This is the hash at the top
-    const newId = new Date().getTime(); //Use this again to represent Id for created user
-    const storeUser = {
-      userId: newId,
-      userName: createUName.value,
-      userPass: hashedPass, //instead of input.value we use hashed password
-      email: emailInput.value
-    };
-    //Function to search if such user account is already taken
-    let userStorage = JSON.parse(localStorage.getItem('accountStorage'))||[];
-    let userNameExist = false; //Flag for searching username 
-    let userPassExist = false; //Flag for searching password
-    for(let i = 0; i < userStorage.length; i++){
-      if(userStorage[i].userName === storeUser.userName){
-        userNameExist = true;
-      }
-      if(userStorage[i].userPass === storeUser.userPass){
-        userPassExist = true;
-      }
-    }
-    //Messages based to each flag condition
-    if(createUName.value === "" || createPass.value === ""){
+
+    if(createUName.value === "" || createPass.value === "" || emailInput.value === ""){
       alert('Input value is needed');
       return;
     }
-    if(userNameExist){
+    
+    if (!validateEmail(emailInput.value)) {
+      showError(emailInput, "Enter a valid email");
+      return;
+    }
+    
+    //Function to search if such user account is already taken
+    const userStorage = JSON.parse(localStorage.getItem('accountStorage')) || [];
+    //Duplicate checks 
+    if (userStorage.some(u => u.userName === createUName.value)) {
       alert('Username already taken');
       createUName.value = '';
       return;
     }
-    if(userPassExist){
+
+    if (userStorage.some(u => u.email === emailInput.value)) {
+      alert('E-mail address already taken');
+      emailInput.value = '';
+      return;
+    }
+  
+    const hashedPass = await hashPassword(createPass.value.trim()); //This is the hash at the top
+    if (userStorage.some(u => u.userPass === hashedPass)) {
       alert('Password already taken');
       createPass.value = '';
       return;
     }
+
+    const newId = new Date().getTime(); //Use this as user Id
+    const storeUser = {
+      userId: newId,
+      userName: createUName.value,
+      userPass: hashedPass, //instead of input.value we use the hashed password
+      email: emailInput.value
+    };
+
     //If username/password is not yet in the storage we add it to storage
     userStorage.push(storeUser);
     localStorage.setItem('accountStorage', JSON.stringify(userStorage));
+    //Clear inputs and panel
     createUName.value = '';
     createPass.value = '';
     emailInput.value = '';
-    createAccountPage.classList.remove('create-account-slider');
+    createBtn.classList.remove('create-account-slider');
     coverPage.style.display = 'none'; 
     document.body.classList.remove("no-scroll"); 
+    alert('Account created successfully');
   });
 });
 function validateEmail(email) {
@@ -293,8 +343,8 @@ function showError(input, message) {
     small.textContent = message;
     input.classList.add("error-border");
 }
-//Login function  
-function loginUser(){
+//Login form  
+function loginUserForm(){
   const loginBtn = document.getElementById('login-to-main-button');
   const loginUserName = document.getElementById('input-login-uName');
   const loginUserPass = document.getElementById('input-login-pass');
@@ -304,14 +354,13 @@ function loginUser(){
     loginUserName.value = rememberMe;
     rememberMeCheckbox.checked = true;
   }
-  loginBtn.addEventListener("click", async () => {
+  loginBtn.addEventListener("click", async () => { //Async for the password hash
   const username = loginUserName.value.trim();
   const password = loginUserPass.value.trim();
   const userStorage = JSON.parse(localStorage.getItem('accountStorage')) || [];
   const hashedInput = await hashPassword(password);
-  const user = userStorage.find(u => 
-      u.userName === username && 
-      u.userPass === hashedInput
+  const user = userStorage.find(u => //Search username and password in the localstorage for match
+      u.userName === username && u.userPass === hashedInput
   );
    const loggedInUser = document.getElementById('user-to-log');
   if (user) {
@@ -326,29 +375,164 @@ function loginUser(){
     loginAccountPage.classList.remove('login-account-slider');
     coverPage.style.display = 'none'; 
     document.body.classList.remove("no-scroll");
+    alert('Login successful.');
   } else {
     alert("Invalid username or password");
   }
-    
   });
-}loginUser();
-//reload remain user display just like in the cart and counter
-const loggedInUser = document.getElementById('user-to-log');
-const savedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
-if (savedUser) {
-  loggedInUser.textContent = savedUser.userName;
-}
+}loginUserForm();
+
+//Code is a bit different from above to see which is easier to understand
+const createForm = document.getElementById('create-accnt-btn');
+function mobileLoginUserForm(){
+  const mobileLoginUserName = document.getElementById('input-user-name');
+  const mobileLoginUserPass = document.getElementById('input-user-pass');
+  const form = document.getElementById('mobile-form-submit');
+  const mobileRememberMeCheckbox = document.getElementById('mobile-remember-me');
+  const mobileRememberMe = JSON.parse(localStorage.getItem('rememberUserName'));
+  const mobileLoginPanel = document.getElementById('login-page');
+  if(mobileRememberMe){
+    mobileLoginUserName.value = mobileRememberMe;
+    mobileRememberMeCheckbox.checked = true;
+  }
+   if (form.dataset.bound) return;
+  form.dataset.bound = "true";
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const mobileUsername = mobileLoginUserName.value.trim();
+    const mobilePassword = mobileLoginUserPass.value.trim();
+
+    if (!mobileUsername || !mobilePassword) {
+      alert("Please enter username and password");
+      return;
+    }
+
+    const userStorage = JSON.parse(localStorage.getItem('accountStorage')) || [];
+    const hashedInput = await hashPassword(mobilePassword);
+    const user = userStorage.find(
+      u => u.userName === mobileUsername && u.userPass === hashedInput
+    );
+    if (!user) {
+      alert("Invalid username or password");
+      return;
+    }
+    document.getElementById('mobile-user-to-log').textContent = user.userName;
+    localStorage.setItem('saveLoggedInUser', JSON.stringify(user));
+    if (mobileRememberMeCheckbox.checked) {
+      localStorage.setItem('rememberUserName', JSON.stringify(mobileUsername));
+    } else {
+      localStorage.removeItem('rememberUserName');
+    }
+    mobileLoginUserPass.value = '';
+    mobileLoginPanel.style.display = 'none';
+    coverPage.style.display = 'none';
+    document.body.classList.remove("no-scroll");
+    alert('Login successful.');
+    location.reload();
+  });
+   //Cancel button in form. Erase only the input values
+  const closeFormPanel = document.getElementById('mobile-cancel-form');
+  closeFormPanel.addEventListener('click', (e)=>{
+    e.preventDefault();
+    mobileLoginUserName.value = '';
+    mobileLoginUserPass.value = '';
+  });
+  //Redirect to create account form
+  const redirectToCreateForm = document.getElementById('mobile-redirect-to-create-form');
+  redirectToCreateForm.addEventListener('click', ()=>{
+    loginPage.classList.remove('log-in') 
+    coverPage.style.display = 'flex';
+    document.body.classList.add("no-scroll");
+    createForm.classList.add('create-account-slider');
+  });
+} mobileLoginUserForm();
+
+
+//When hover the logged in user name
+const userNameHover = document.querySelector('.user-name-logged');
+userNameHover.addEventListener('mouseenter', () => {
+  if (userNameHover.scrollWidth > userNameHover.clientWidth) {
+    userNameHover.title = userNameHover.textContent;
+  } else {
+    userNameHover.removeAttribute('title');
+  }
+});
 //Signout function
 function logoutUser(){
   const signOut = document.getElementById('sign-out');
   signOut.addEventListener('click', () =>{
     localStorage.removeItem('saveLoggedInUser');
     loggedInUser.textContent = 'Guest';
+    alert('Signed out.');
+  });
+  const mobileSignoutUser = document.getElementById('mobile-signout-user');
+  mobileSignoutUser.addEventListener('click', ()=>{
+    localStorage.removeItem('saveLoggedInUser');
+    profilePic.src = '';
+    mobileLoggedInUser.textContent = 'Guest';
+    alert('Signed out.');
+    location.reload();
   });
 }logoutUser();
+//Forgot password
+function forgotPassword(){
+  const forgotPass = document.getElementById('forgot-password');
+  forgotPass.addEventListener('click', ()=>{
+    alert('Redirect to retrieve new password page.');
+  });
+}forgotPassword();
 
+const uploadBtn = document.getElementById('upload-pic-Btn');
+const fileInput = document.getElementById('profile-pic-upload');
+const profilePic = document.getElementById('profile-picture');
 
+function uploadProfilePic(){
+  uploadBtn.addEventListener('click', () => {
+    fileInput.click(); // open file picker
+  });
 
+  fileInput.addEventListener('change', ()=>{
+    const file = fileInput.files[0];
+    if(!file) return;
+
+    if(!file.type.startsWith('image/')){
+    alert('Select only an image file');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = () =>{
+    const imageData = reader.result;
+    profilePic.src = imageData;
+    const users = JSON.parse(localStorage.getItem('accountStorage')) || [];
+    const loggedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
+    if (!loggedUser) return;
+    const userIndex = users.findIndex(
+        u => u.userId === loggedUser.userId
+    );
+    if (userIndex === -1) return;
+    users[userIndex].profileImage = imageData;
+    localStorage.setItem('accountStorage', JSON.stringify(users));
+    localStorage.setItem('saveLoggedInUser',JSON.stringify(users[userIndex]));
+  };
+   reader.readAsDataURL(file);
+  });
+}uploadProfilePic();
+//reload remain user display just like in the cart and counter
+const loggedInUser = document.getElementById('user-to-log');
+const mobileLoggedInUser = document.getElementById('mobile-user-to-log');
+const savedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
+if (savedUser) {
+  if(loggedInUser){
+    loggedInUser.textContent = savedUser.userName;
+  }
+  if(mobileLoggedInUser){
+    mobileLoggedInUser.textContent = savedUser.userName;
+  }
+  if (savedUser?.profileImage) {
+    profilePic.src = savedUser.profileImage;
+}
+}
 //Carousel of the upper panel items on mobile viewport
 //This function is different from when on desktop viewport
 window.__mobileUpperSliderActive = false;

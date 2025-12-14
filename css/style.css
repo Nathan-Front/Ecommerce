@@ -53,13 +53,12 @@ li{
     align-items: center;
 }
 .logo-company h1{
-    
     margin: 0% 0% 0% 1%;
     padding: 1% 0%;
-    font-size: 3.5vw;
+    font-size: clamp(2rem, 3.5vw, 4rem);
 }
 .logo-company img{
-    max-width: 5%;
+    width: clamp(2rem, 4vw, 4.5rem);
 }
 .login-container{
     min-width: fit-content;
@@ -75,9 +74,9 @@ li{
 }
 .login-container p{
     display: flex;
-    min-width: fit-content;
     margin: auto 3% auto 0%;
-    font-size: 1.5vw;
+    width: clamp(6rem, 10vw, 7rem);
+    font-size: clamp(0.8rem, 1.2vw, 1.2rem);
 }
 .login-container p a{
     min-width: fit-content;
@@ -566,9 +565,6 @@ li{
             margin-right: 0%;
         }
     }
-    .login-container a{
-        font-size: 1em;
-    }
     #login-button{
         width: 5%;
     }
@@ -654,7 +650,7 @@ li{
     margin: 0% 0% 0% 2%;
     padding: 2% 0%;
     text-align: center;
-    font-size: 1.5vw;
+    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
     overflow: hidden;
 
 }
@@ -799,7 +795,7 @@ li{
     padding: 2% 0%;
     border: none;
     text-align: center;
-    font-size: 1.5vw;
+    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
     overflow: hidden;
         
 }
@@ -868,7 +864,7 @@ li{
     padding: 2% 0%;
     border: none;
     text-align: center;
-    font-size: 1.5vw;
+    font-size: clamp(0.8rem, 1.5vw, 1.2rem);
     overflow: hidden;
         
 }
@@ -940,17 +936,22 @@ li{
     width: fit-content;
     margin: 0;
     padding-right: 2%;
-    font-size: 0.85em;
+    font-size: clamp(0.8rem, 1vw, 1.5rem);
+    text-align: right;
 }
 .user-name-logged{
-    width: fit-content;
-    font-size: 0.8em;
+    width: clamp(3rem, 5vw, 7rem);
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: clamp(0.7rem, 1vw, 1.3rem);
     color: black;
     font-weight: bold;
 }
 .logged-in-user button{
     width: fit-content;
-    font-size: 0.8em;
+    font-size: clamp(0.7rem, 1vw, 1.5rem);
     background-color: transparent;
     border: none;
     margin: 0;
@@ -958,6 +959,72 @@ li{
 }
 .logged-in-user button:hover{
     cursor: pointer;
+}
+.logged-in-user-info-panel{
+    display: none;
+}
+@media only screen and (max-width: 430px){
+    .mobile-Login-panel{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100dvw;
+        height: 100dvh;
+        background-color: white;
+        backdrop-filter: blur(20px);
+        color: whitesmoke;
+        z-index: 15;
+        animation: profile 300ms ease-in-out; 
+        
+    }
+    @keyframes profile{
+        from{
+            margin-right: -100%
+        }
+        to{
+            margin-right: 0;
+        }
+    }
+    .close-logged-in-user-panel{
+        width: clamp(1.5rem, 2vh, 3rem);
+        margin: 3% auto 0% 3%;
+    }
+    .profile-picture{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+    .upload-profile-pic{
+       width: clamp(1.5rem, 2vh, 3rem);
+       position: absolute;
+       bottom: 0;
+       right: 37%;
+    }
+    .profile-pic{
+        width: clamp(5rem, 6vw, 10rem);
+        height: clamp(5rem, 6vw, 10rem);
+        border: 1px rgb(0, 0, 0) solid;
+        border-radius: 50%;
+        margin: 5% 0% 0% 0%;
+    }
+    .logged-in-user-info-panel p{
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        margin: 2% 0% 0% 0%;
+        color: black;
+    }
+    .logged-in-user-name{
+        font-size: clamp(2.5rem, 5vw, 6rem);
+        margin: 0;
+        color: black;
+    }
+    .logout-button{
+        width: clamp(10rem, 10vw, 13rem);
+        margin: 3% 0% 0% 0%;
+    }
 }
 @media only screen and (max-width: 550px){
         .category-panel{
@@ -1045,9 +1112,9 @@ li{
         .drop-menu-items{
             font-size: 1.1em;
         }
-        .new-item-display-button{
+       /* .new-item-display-button{
             font-size: 0.9em;
-        }
+        }*/
         .news-descript span:first-child{
             font-size: 0.85em;
         }
@@ -1127,20 +1194,20 @@ li{
 }
 .main-panel-upper-h2{
     margin: 3% 0% 0% 5%;
-    font-size: 2vw;
-     width: fit-content;
+    font-size: clamp(0.9rem, 2vw, 1.5rem);
+    width: fit-content;
     backdrop-filter: blur(1px);   
 }
 
 .main-panel-upper div p{
-    font-size: 1.5vw;
+    font-size: clamp(0.7rem, 1.5vw, 1.2rem);
     font-weight: bolder;
     width: fit-content;
     margin: 11% 0% 0% 5%;
     backdrop-filter: blur(1px); 
 }
 .upper-carousel-button{
-    font-size: 2.2vw;
+    font-size: clamp(1rem, 2.2vw, 1.8rem);
     font-weight: bold;
     width: fit-content;
     margin: 1% 0% 2% 4.5%;
@@ -1785,13 +1852,6 @@ overflow: auto;
     display: none;
 }
 .displayCart{
-   /* border: 1px rgb(89, 88, 88) solid;
-    display: flex;
-    position: absolute;
-    right: 0;
-    top: 13%;
-    width: 10%;
-    z-index: 999;*/
     position: fixed;
     top: 0;
     right: -300px; 
@@ -1900,7 +1960,7 @@ overflow: auto;
     display: flex;
     margin: 0% 0% 0% 5%;
     gap: 16.5%;
-        padding: 2% 0;
+    padding: 2% 0;
     border-bottom: 2px solid black;
 }
 .cart-payment button{
@@ -1940,8 +2000,9 @@ overflow: auto;
 .item-descript-cart span{
     font-weight: bold;
     color: #4682b4;
-    font-size: 0.9em;
-    margin-left: 2%;
+    font-size: 1em;
+    margin-left: 1%;
+    text-align: left;
 }
 .item-cart-button-cart{
     display: grid;
@@ -1952,6 +2013,9 @@ overflow: auto;
     grid-column-end: 6;
     grid-row-start: 1;
     grid-row-end: 2;
+    border: 1px solid #4682b4;
+    background-color: #add8e6;
+    border-radius: 0.2em;
 }
   
 @media only screen and (max-width: 430px){
@@ -2703,10 +2767,12 @@ left: 0;
 .best-offer-button img:hover{
     cursor: pointer;
 }
-.lower-panel-item-card-links{
+.lower-panel-item-card-links,
+#forgot-password{
     color: #0000EE;
 }
-.lower-panel-item-card-links:hover{
+.lower-panel-item-card-links:hover,
+#forgot-password:hover{
     cursor: pointer;
     color: #551A8B;;
 }
@@ -3516,7 +3582,7 @@ footer div{
     .alright-reserve a img{
     display: none;
     }
-        .alright-reserve-acc-footer,
+    .alright-reserve-acc-footer,
     .alright-reserve-burgerlinks-footer,
     .alright-reserve-cart-footer{
     width: 100%;
@@ -3661,11 +3727,12 @@ footer div{
 }
 
 
+/*For login/create panel*/
 #login-accnt-btn{
     display: none;
 }
  .login-account-slider{
-        width: 50dvw;
+        width: clamp(40vw, 50vw, 60vw);
         padding: 2% 0%;
         display: flex !important;
         flex-direction: column;
@@ -3686,16 +3753,16 @@ footer div{
             width: 0dvw;
         }
         to{
-            width: 50dvw;
+            width: 50vw;
         }
     }
     .login-accnt-page label{
         margin: 0% 0% 0% 5%;
         color: black;
-        font-size: 1em;
     }
     .login-accnt-page label b{
         align-content: start;
+        font-size: clamp(0.75rem, 1rem, 1.2rem);
     }
     .login-accnt-page input{
         width: 90%;
@@ -3710,8 +3777,9 @@ footer div{
         margin: 0% auto;
     }
     .login-create button{
-        width: 40%;
+        width: clamp(30%, 40%, 50%);
         margin: 3% auto 5% auto;
+        font-size: clamp(0.75rem, 0.8rem, 1.1rem);
     }
     .login-create button:first-child{
         margin:5% auto 5% 0%;
@@ -3751,12 +3819,11 @@ footer div{
     .cancel-forgot-container p a{
         text-decoration: none;
     }
-
 #create-accnt-btn{
     display: none;
 }
 .create-account-slider{
-    width: 50dvw;
+    width: clamp(40vw, 50vw, 60vw);
     padding: 2% 0%;
     display: flex !important;
     flex-direction: column;
@@ -3777,7 +3844,7 @@ footer div{
         width: 0dvw;
     }
     to{
-        width: 50dvw;
+        width: 50vw;
     }
 }
 .create-accnt-page label{
@@ -3798,7 +3865,7 @@ footer div{
 /*When email input is wrong*/
 .error {
   color: red;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   margin: 0% 0% 0% 5%;
 }
 input.error-border {
@@ -3824,4 +3891,110 @@ input.error-border {
     display: flex;
     justify-items: start;
     margin: 5% auto 0% auto;
+}
+
+@media only screen and (max-width: 430px){
+    
+.create-account-slider{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: start;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    top: unset;
+    left: unset;
+    transform: unset;
+    background-color: white;
+    color: whitesmoke;
+    z-index: 99;
+    animation: mobileCreateAcc 500ms ease-in-out;  
+    padding: 0; 
+}
+@keyframes mobileCreateAcc {
+    from{
+        margin-right: -100%;
+    }
+    to{
+        margin-right: 0;
+    }
+}
+.create-accnt-page label{
+    margin: 0% 0% 0% 5%;
+    padding: 5% 0% 2% 0%;
+    color: black;
+    font-size: 1em;
+}
+.create-accnt-page label b{
+    margin: 0% 0% 0% 0%;
+}
+.create-accnt-page input{
+    width: 90%;
+    margin: 0% auto 0% auto;
+}
+.create-accnt-page label{
+    margin: 3% 0% 0% 5%;
+}
+/*When email input is wrong*/
+.error {
+  color: red;
+  font-size: 0.7rem;
+  margin: 0% 0% 0% 5%;
+}
+input.error-border {
+  border: 2px solid red;
+}
+.login-create{
+    width: 90%;
+    display: flex;
+    margin: 10% auto;
+}
+.login-create button{
+    width: 40%;
+    margin: 3% auto 5% auto;
+}
+.login-create button:first-child{
+    margin:5% auto 5% 0%;
+}
+.login-create button:last-child{
+    margin:5% 0% 5% auto;
+}
+.cancel-forgot-container{
+    width: 90%;
+    display: flex;
+    justify-items: start;
+    margin: 5% auto 0% auto;
+}
+}
+
+@media (min-width: 431px) and (max-width: 540px){
+    .login-account-slider{
+        width: clamp(50dvw, 60dvw, 70dvw);
+        top: 25%;
+        transform: translate(-50%, -25%); 
+    }
+    @keyframes createAcc {
+        from{
+            width: 0dvw;
+        }
+        to{
+            width: 60dvw;
+        }
+    }
+.create-account-slider{
+    width: clamp(50dvw, 60dvw, 70dvw);
+    top: 25%;
+    transform: translate(-50%, -25%);    
+}
+@keyframes createAcc {
+    from{
+        width: 0dvw;
+    }
+    to{
+        width: 60dvw;
+    }
+}
 }
