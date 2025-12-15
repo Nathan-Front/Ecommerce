@@ -1031,25 +1031,22 @@ li{
         margin: 43.19px 0% 0% 0%;
         padding: 0;
         }
-        .drop-menu-items{
-            font-size: 1.1em;
-        }
         .new-item-display-button{
-            font-size: 0.9em;
+            font-size: 0.65rem;
         }
         .news-descript span:first-child{
-            font-size: 0.85em;
+            font-size: 0.65rem;
         }
         .news-descript span:nth-child(2),
         .news-descript span:last-child{
-            font-size: 0.8em;
+            font-size: 0.6rem;
         }
         .new-item-panel p{
-            font-size: 0.9em;
+            font-size: 0.55rem;
         }
         .newsItemActive{
             background-color: #87ceeb;
-            border-radius: 0.25em;
+            border-radius: 0.25rem;
         }
         .news-button,
         .category-button,
@@ -1109,21 +1106,15 @@ li{
         height: 20px;
         padding: 0;
         }
-        .drop-menu-items{
-            font-size: 1.1em;
-        }
-       /* .new-item-display-button{
-            font-size: 0.9em;
-        }*/
         .news-descript span:first-child{
-            font-size: 0.85em;
+            font-size: 0.7rem;
         }
         .news-descript span:nth-child(2),
         .news-descript span:last-child{
-            font-size: 0.8em;
+            font-size: 0.65rem;
         }
         .new-item-panel p{
-            font-size: 0.9em;
+            font-size: 0.65rem;
         }
         .newsItemActive{
             background-color: #87ceeb;
@@ -3770,6 +3761,30 @@ footer div{
     }
     .login-accnt-page label:nth-child(3){
         margin: 3% 0% 0% 5%;
+    }
+    .pass-input-field{
+        width: 90%;
+        margin: 0% auto;
+        position: relative;
+    }
+    .pass-input-field input{
+        min-width: 100%;
+    }
+    .fa-eye{
+        position: absolute;
+        bottom: 10%;
+        right: 1%;
+        cursor: pointer;
+        color: lightgray;
+        margin: auto 0%;
+    }
+    .fa-eye-slash{
+         position: absolute;
+        bottom: 10%;
+        right: 1%;
+        cursor: pointer;
+        color: lightgray;
+        margin: auto 0%;
     }
     .login-create{
         width: 90%;

@@ -448,6 +448,25 @@ function mobileLoginUserForm(){
   });
 } mobileLoginUserForm();
 
+//Show password toggle button function
+//function showEye(){
+document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("click", (e) => {
+    const eye = e.target.closest(".toggle-password");
+    if (!eye) return;
+
+    const passwordField = document.getElementById(eye.dataset.target);
+    if (!passwordField) return;
+
+    const isPassword = passwordField.type === "password";
+    passwordField.type = isPassword ? "text" : "password";
+
+    eye.classList.toggle("fa-eye");
+    eye.classList.toggle("fa-eye-slash");
+  });
+});
+  
+//}
 
 //When hover the logged in user name
 const userNameHover = document.querySelector('.user-name-logged');

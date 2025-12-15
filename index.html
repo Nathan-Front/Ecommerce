@@ -50,7 +50,10 @@
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="input Username" name="uname" id="input-user-name">
             <label for="pass"><b>Password</b></label>
-            <input type="text" placeholder="input password" name="pass" id="input-user-pass">
+            <div class="pass-input-field">
+                <input type="password" placeholder="input password" name="pass" id="input-user-pass">
+                <i class="fa-solid fa-eye toggle-password" data-target="input-user-pass" role="button" tabindex="0" id="eye"></i>
+            </div>
             <button type="submit" id="mobile-login-button">Login</button>
             <button type="button" id="mobile-redirect-to-create-form">Don't have account yet?</button>
             <label>
@@ -92,7 +95,10 @@
             <label for="uname"><b>Username</b></label>
             <input id="input-login-uName" type="text" placeholder="input Username" name="uname">
             <label for="pass"><b>Password</b></label>
-            <input id="input-login-pass" type="text" placeholder="input password" name="pass">
+            <div class="pass-input-field">
+                <input id="input-login-pass" type="password" placeholder="input password" name="pass">
+                <i class="fa-solid fa-eye toggle-password" data-target="input-login-pass" role="button" tabindex="0" id="eye"></i>
+            </div>
             <div class="login-create">
                 <button id="login-to-main-button">Login</button>
                 <button type="button" id="link-create-Btn">Dont have account yet?</button>
@@ -110,7 +116,10 @@
             <label for="uname"><b>Username</b></label>
             <input id="input-uName" type="text" placeholder="input Username" name="uname">
             <label for="pass"><b>Password</b></label>
-            <input id="input-pass" type="text" placeholder="input password" name="pass">
+            <div class="pass-input-field">
+                <input id="input-pass" type="password" placeholder="input password" name="pass">
+                <i class="fa-solid fa-eye toggle-password" data-target="input-pass" role="button" tabindex="0" id="eye2"></i>
+            </div>    
             <label for="pass"><b>E-mail address</b></label>
             <input id="input-email" type="text" placeholder="input password" name="pass">
             <small class="error"></small>
