@@ -1,4 +1,4 @@
-
+//Variable outside function is also being used to other functions
 const titlePanel = document.querySelector('.title-cart-panel');
 const burgerLinks = document.querySelector("#burger-menu");
 const burgerOpen = document.getElementById("burger");
@@ -100,37 +100,36 @@ function enableDesktop() {
 
 const loginPage = document.getElementById('login-page');
 const closeLoginPage = document.getElementById('close-login-page');
- const mobileLoggedInPanel = document.getElementById('mogile-logged-in-panel');
+const mobileLoggedInPanel = document.getElementById('mogile-logged-in-panel');
 document.addEventListener("DOMContentLoaded", () =>{
 
         const loginBtn = document.getElementById('login-panel-button');
         const loginBtnMenu = document.getElementById('login-panel-button-menu-header');
         const loginBtnMenuCart = document.getElementById('login-panel-button-menu-header-cart');       
         
-        //For diplaying login page 430px and below
-       
+        //For diplaying login/create  form page 430px and below
         const userLog = document.getElementById('mobile-user-to-log').textContent;
-       
-        //if(loginBtn){
         loginBtn.addEventListener('click', () =>{
           if(userLog !== 'Guest' || userLog === ""){
-              mobileLoggedInPanel.classList.add('mobile-Login-panel');
-              document.body.classList.add('no-scroll');
-              coverPage.style.display = 'flex';
+            mobileLoggedInPanel.classList.add('mobile-Login-panel');
+            document.body.classList.add('no-scroll');
+            coverPage.style.display = 'flex';
           }else{
-              loginPage.classList.add('log-in');
-              document.body.classList.add('no-scroll');
-              coverPage.style.display = 'flex';
+            loginPage.classList.add('log-in');
+            document.body.classList.add('no-scroll');
+            coverPage.style.display = 'flex';
           }    
         });
-          //}
+        //To close the form displayed by the code above
         const closeUserInfo = document.getElementById('close-user-info-panel');
           closeUserInfo.addEventListener('click', ()=>{
-              mobileLoggedInPanel.classList.remove('mobile-Login-panel');
-              document.body.classList.remove('no-scroll');
-              coverPage.style.display = 'none';
-          });
-         //if(loginBtnMenu){
+          mobileLoggedInPanel.classList.remove('mobile-Login-panel');
+          document.body.classList.remove('no-scroll');
+          coverPage.style.display = 'none';
+        });
+       
+        //Second button to display the same login form from the above code. 
+        //You can use Data- to make this code more simple and compact
         loginBtnMenu.addEventListener('click', () =>{
           if(userLog !== 'Guest' || userLog === ""){
             loginPage.classList.remove('log-in');
@@ -140,8 +139,7 @@ document.addEventListener("DOMContentLoaded", () =>{
             burgerLinks.classList.remove("burger-links");
             burgerClose.style.display = 'none';
             burgerOpen.style.display = 'flex'; 
-              mobileLoggedInPanel.classList.add('mobile-Login-panel');
-
+            mobileLoggedInPanel.classList.add('mobile-Login-panel');
           }else{
             loginPage.classList.add('log-in');
             document.body.classList.add('no-scroll');
@@ -149,10 +147,10 @@ document.addEventListener("DOMContentLoaded", () =>{
             burgerLinks.classList.remove("burger-links");
             burgerClose.style.display = 'none';
             burgerOpen.style.display = 'flex'; 
-          } 
-            
-        });
-      //}
+          }     
+       });
+      //Third button to display the same login form from the above code.
+      //You can use Data- to make this code more simple and compact
       if(loginBtnMenuCart){
         loginBtnMenuCart.addEventListener('click', () =>{
           if(userLog !== 'Guest' || userLog === ""){
@@ -167,17 +165,18 @@ document.addEventListener("DOMContentLoaded", () =>{
             document.body.classList.add('no-scroll');
             cartContentEmpty.classList.remove('navActive');
             burgerLinks.classList.remove("burger-links");
-          }
-            
+          }   
         });
       }
-      //For closing login page
+
+      //For closing login page. This is the X of login form
       closeLoginPage.addEventListener('click', () => {
           loginPage.classList.remove('log-in');
           document.body.classList.remove('no-scroll');
           coverPage.style.display = 'none';
       });
-      //For the carousel at the very top of the page
+
+      //For the carousel at the very top of the page. Viewport 541px and above
       if(window.innerWidth > 540) return;
       const upperPanel1 = document.querySelector('.main-panel-upper-first');
       const upperPanel2 = document.querySelector('.main-panel-upper-second');
@@ -217,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () =>{
 
 //Use Built-in API hash of the browser *This is for front-end only no server/DB
 //Does not show the exact password in the localStorage
-  async function hashPassword(password) {
+async function hashPassword(password) {
   const encoder = new TextEncoder();
   const data = encoder.encode(password);
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
@@ -225,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () =>{
   const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   return hashHex;
 }
-//Login/Create account panel
+//Login/Create account form
 const loginAccBtn = document.getElementById('sign-in');
 const loginAccountPage = document.getElementById('login-accnt-btn');
 const closeLoginAccntPage = document.getElementById('login-close-createAccnt-page');
@@ -233,38 +232,42 @@ const createAccBtn = document.getElementById('register');
 const createBtn = document.getElementById('create-accnt-btn'); //Create account form
 const closeCreateAccntPage =document.getElementById('close-createAccnt-page');
 const noAccntYetBtn = document.getElementById('link-create-Btn');
-//Display login/create panel
+//Display login/create form
 document.addEventListener('DOMContentLoaded', ()=>{
+
   loginAccBtn.addEventListener('click', ()=>{
-  const existingLoggedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
-  if(existingLoggedUser){
-    alert('Already logged in');
-    return;
-  }
+    //Prevents user form opening login form if thet are already logged in
+    const existingLoggedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
+    if(existingLoggedUser){
+      alert('Already logged in');
+      return;
+    }
+    //Open login form if they are not logged in
     loginAccountPage.classList.add('login-account-slider');
     coverPage.style.display = 'flex'; 
     document.body.classList.add("no-scroll"); 
   });
-  //Close login panel/form
+
+  //Close login form
   closeLoginAccntPage.addEventListener('click', ()=>{
     loginAccountPage.classList.remove('login-account-slider');
     coverPage.style.display = 'none'; 
     document.body.classList.remove("no-scroll"); 
   });
-  //Redirect to create acount panel
+  //Redirect to create acount form
   noAccntYetBtn.addEventListener('click', ()=>{
     loginAccountPage.classList.remove('login-account-slider');
     createBtn.classList.add('create-account-slider'); 
     coverPage.style.display = 'flex'; 
     document.body.classList.add("no-scroll"); 
   });
-  //Display create account panel
+  //Display create account form
   createAccBtn.addEventListener('click', () =>{
     createBtn.classList.add('create-account-slider'); 
     coverPage.style.display = 'flex'; 
     document.body.classList.add("no-scroll"); 
   });
-  //Close create account panel
+  //Close create account form
   closeCreateAccntPage.addEventListener('click', (e)=>{
     e.preventDefault();
     createBtn.classList.remove('create-account-slider');
@@ -276,16 +279,19 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const createUName = document.getElementById('input-uName');
   const createPass = document.getElementById('input-pass');
   const emailInput = document.getElementById('input-email');
-  createBtn.addEventListener('submit', async (e)=>{
-    e.preventDefault();
-    document.querySelectorAll("small.error").forEach(el => el.textContent = "");
-    document.querySelectorAll("input").forEach(el => el.classList.remove("error-border"));
+  createBtn.addEventListener('submit', async (e)=>{ //Use form submit for accessibility and use the async to be able to use the hash code from above
+    e.preventDefault(); //Prevents the form's default action. Prevents submitting if button is not clicked
 
+    //If all input tags are empty
     if(createUName.value === "" || createPass.value === "" || emailInput.value === ""){
       alert('Input value is needed');
       return;
     }
     
+    //this is for warning error if not correct e-mail format
+    document.querySelectorAll("small.error").forEach(el => el.textContent = ""); 
+    document.querySelectorAll("input").forEach(el => el.classList.remove("error-border"));
+    //Check if input is an e-mail
     if (!validateEmail(emailInput.value)) {
       showError(emailInput, "Enter a valid email");
       return;
@@ -293,26 +299,26 @@ document.addEventListener('DOMContentLoaded', ()=>{
     
     //Function to search if such user account is already taken
     const userStorage = JSON.parse(localStorage.getItem('accountStorage')) || [];
-    //Duplicate checks 
+    //Duplicate username check 
     if (userStorage.some(u => u.userName === createUName.value)) {
       alert('Username already taken');
       createUName.value = '';
       return;
     }
-
-    if (userStorage.some(u => u.email === emailInput.value)) {
-      alert('E-mail address already taken');
-      emailInput.value = '';
-      return;
-    }
-  
-    const hashedPass = await hashPassword(createPass.value.trim()); //This is the hash at the top
+    //Duplicate password check 
+    const hashedPass = await hashPassword(createPass.value.trim()); //This is the async/hash at the top
     if (userStorage.some(u => u.userPass === hashedPass)) {
       alert('Password already taken');
       createPass.value = '';
       return;
     }
-
+    //Duplicate e-mail check 
+    if (userStorage.some(u => u.email === emailInput.value)) {
+      alert('E-mail address already taken');
+      emailInput.value = '';
+      return;
+    }
+    
     const newId = new Date().getTime(); //Use this as user Id
     const storeUser = {
       userId: newId,
@@ -321,7 +327,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       email: emailInput.value
     };
 
-    //If username/password is not yet in the storage we add it to storage
+    //If username,password and e-mail is not yet in the storage we add it to storage
     userStorage.push(storeUser);
     localStorage.setItem('accountStorage', JSON.stringify(userStorage));
     //Clear inputs and panel
@@ -334,60 +340,75 @@ document.addEventListener('DOMContentLoaded', ()=>{
     alert('Account created successfully');
   });
 });
+
+
+//This is the e-mail validator
 function validateEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email)
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return emailRegex.test(email)
 }
+
+
+//This is the error message when incorrect e-mail format was input
 function showError(input, message) {
-    const small = input.parentElement.querySelector("small");
-    small.textContent = message;
-    input.classList.add("error-border");
+  const small = input.parentElement.querySelector("small");
+  small.textContent = message;
+  input.classList.add("error-border");
 }
-//Login form  
+
+
+//Login form  desktop/tablet
 function loginUserForm(){
   const loginBtn = document.getElementById('login-to-main-button');
   const loginUserName = document.getElementById('input-login-uName');
   const loginUserPass = document.getElementById('input-login-pass');
+
+  //If remember me checkbox is checked
   const rememberMeCheckbox = document.getElementById('remember-me');
   const rememberMe = JSON.parse(localStorage.getItem('rememberUserName'));
   if(rememberMe){
     loginUserName.value = rememberMe;
     rememberMeCheckbox.checked = true;
   }
+
   loginBtn.addEventListener("click", async () => { //Async for the password hash
-  const username = loginUserName.value.trim();
+  const username = loginUserName.value.trim(); //Trim() is to remove whitespaces at both end
   const password = loginUserPass.value.trim();
   const userStorage = JSON.parse(localStorage.getItem('accountStorage')) || [];
   const hashedInput = await hashPassword(password);
   const user = userStorage.find(u => //Search username and password in the localstorage for match
       u.userName === username && u.userPass === hashedInput
   );
-   const loggedInUser = document.getElementById('user-to-log');
-  if (user) {
+
+  const loggedInUser = document.getElementById('user-to-log');
+  if(user){ //If user exist
     loggedInUser.textContent = user.userName; //Display username
-    localStorage.setItem('saveLoggedInUser',JSON.stringify(user)); //Save that logged in user
-    if (rememberMeCheckbox.checked) {
-            localStorage.setItem("rememberUserName", JSON.stringify(username)); //Save as remember me
-        } else {
-            localStorage.removeItem("rememberUserName"); //Do not save as remember me
-        }
+    localStorage.setItem('saveLoggedInUser',JSON.stringify(user)); //Save that logged in user to different localStorage 
+    if (rememberMeCheckbox.checked){
+      localStorage.setItem("rememberUserName", JSON.stringify(username)); //Save as remember me to another localStorage
+    }else{
+      localStorage.removeItem("rememberUserName"); //Do not save as remember me
+    }
+    //Do this after saving to localStorage    
     loginUserPass.value = ''; 
     loginAccountPage.classList.remove('login-account-slider');
     coverPage.style.display = 'none'; 
     document.body.classList.remove("no-scroll");
     alert('Login successful.');
-  } else {
+  }else{
     alert("Invalid username or password");
   }
   });
 }loginUserForm();
 
+
+//Login form  mobile
 //Code is a bit different from above to see which is easier to understand
 const createForm = document.getElementById('create-accnt-btn');
 function mobileLoginUserForm(){
   const mobileLoginUserName = document.getElementById('input-user-name');
   const mobileLoginUserPass = document.getElementById('input-user-pass');
-  const form = document.getElementById('mobile-form-submit');
+  const form = document.getElementById('mobile-form-submit'); //We put id to form instead of the button
   const mobileRememberMeCheckbox = document.getElementById('mobile-remember-me');
   const mobileRememberMe = JSON.parse(localStorage.getItem('rememberUserName'));
   const mobileLoginPanel = document.getElementById('login-page');
@@ -395,14 +416,15 @@ function mobileLoginUserForm(){
     mobileLoginUserName.value = mobileRememberMe;
     mobileRememberMeCheckbox.checked = true;
   }
-   if (form.dataset.bound) return;
+  if(form.dataset.bound) return; //This prevents from doing submit/events when button/input field etc. is clicked or toggled
   form.dataset.bound = "true";
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     const mobileUsername = mobileLoginUserName.value.trim();
     const mobilePassword = mobileLoginUserPass.value.trim();
 
+    //If user/password input field is empty
     if (!mobileUsername || !mobilePassword) {
       alert("Please enter username and password");
       return;
@@ -417,13 +439,14 @@ function mobileLoginUserForm(){
       alert("Invalid username or password");
       return;
     }
-    document.getElementById('mobile-user-to-log').textContent = user.userName;
-    localStorage.setItem('saveLoggedInUser', JSON.stringify(user));
+    document.getElementById('mobile-user-to-log').textContent = user.userName; //Diplay logged in user
+    localStorage.setItem('saveLoggedInUser', JSON.stringify(user)); //Save the logged in user to localSotrage
     if (mobileRememberMeCheckbox.checked) {
       localStorage.setItem('rememberUserName', JSON.stringify(mobileUsername));
     } else {
       localStorage.removeItem('rememberUserName');
     }
+    //Do this after saving the logged in user
     mobileLoginUserPass.value = '';
     mobileLoginPanel.style.display = 'none';
     coverPage.style.display = 'none';
@@ -431,13 +454,15 @@ function mobileLoginUserForm(){
     alert('Login successful.');
     location.reload();
   });
-   //Cancel button in form. Erase only the input values
-  const closeFormPanel = document.getElementById('mobile-cancel-form');
-  closeFormPanel.addEventListener('click', (e)=>{
+
+  //Cancel button in form. Erase only the input values. This is not the same as the X in the login form
+  const cancelFormPanel = document.getElementById('mobile-cancel-form');
+  cancelFormPanel.addEventListener('click', (e)=>{
     e.preventDefault();
     mobileLoginUserName.value = '';
     mobileLoginUserPass.value = '';
   });
+
   //Redirect to create account form
   const redirectToCreateForm = document.getElementById('mobile-redirect-to-create-form');
   redirectToCreateForm.addEventListener('click', ()=>{
@@ -448,35 +473,36 @@ function mobileLoginUserForm(){
   });
 } mobileLoginUserForm();
 
-//Show password toggle button function
-//function showEye(){
+
+//Show password eye button function
 document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (e) => {
-    const eye = e.target.closest(".toggle-password");
-    if (!eye) return;
+    const eye = e.target.closest(".toggle-password"); //Shared className of the eye
+    if(!eye) return; //Not toggled
 
-    const passwordField = document.getElementById(eye.dataset.target);
+    const passwordField = document.getElementById(eye.dataset.target); //Use data- to target the id of the input field of the toggled eye
     if (!passwordField) return;
 
-    const isPassword = passwordField.type === "password";
-    passwordField.type = isPassword ? "text" : "password";
+    const isPassword = passwordField.type === "password"; //Does the input field type equal to password
+    passwordField.type = isPassword ? "text" : "password"; //If password then change to text other wise as is
 
-    eye.classList.toggle("fa-eye");
+    eye.classList.toggle("fa-eye"); //For initial existance of the eye
     eye.classList.toggle("fa-eye-slash");
   });
 });
-  
-//}
 
-//When hover the logged in user name
+
+//When hovering a long logged in user
 const userNameHover = document.querySelector('.user-name-logged');
 userNameHover.addEventListener('mouseenter', () => {
-  if (userNameHover.scrollWidth > userNameHover.clientWidth) {
-    userNameHover.title = userNameHover.textContent;
+  if (userNameHover.scrollWidth > userNameHover.clientWidth) { //if the logged in user name is longer than the displayed
+    userNameHover.title = userNameHover.textContent; //Display the full user name
   } else {
     userNameHover.removeAttribute('title');
   }
 });
+
+
 //Signout function
 function logoutUser(){
   const signOut = document.getElementById('sign-out');
@@ -494,6 +520,8 @@ function logoutUser(){
     location.reload();
   });
 }logoutUser();
+
+
 //Forgot password
 function forgotPassword(){
   const forgotPass = document.getElementById('forgot-password');
@@ -502,41 +530,43 @@ function forgotPassword(){
   });
 }forgotPassword();
 
+
+//For uploading profile picture
 const uploadBtn = document.getElementById('upload-pic-Btn');
 const fileInput = document.getElementById('profile-pic-upload');
 const profilePic = document.getElementById('profile-picture');
-
 function uploadProfilePic(){
   uploadBtn.addEventListener('click', () => {
-    fileInput.click(); // open file picker
+    fileInput.click(); //Open folder
   });
 
   fileInput.addEventListener('change', ()=>{
-    const file = fileInput.files[0];
+    const file = fileInput.files[0]; //Get only one picture
     if(!file) return;
 
-    if(!file.type.startsWith('image/')){
+    if(!file.type.startsWith('image/')){ //Check if the selected file's MIME type is not an image
     alert('Select only an image file');
     return;
   }
-  const reader = new FileReader();
-  reader.onload = () =>{
+
+  const reader = new FileReader(); //Create reader fo the file being selected
+  reader.onload = () =>{ //When the reder finished reading the file
     const imageData = reader.result;
-    profilePic.src = imageData;
+    profilePic.src = imageData; //Selected picture source
     const users = JSON.parse(localStorage.getItem('accountStorage')) || [];
     const loggedUser = JSON.parse(localStorage.getItem('saveLoggedInUser'));
     if (!loggedUser) return;
-    const userIndex = users.findIndex(
-        u => u.userId === loggedUser.userId
-    );
+    const userIndex = users.findIndex(u => u.userId === loggedUser.userId); //Search for the logged in user
     if (userIndex === -1) return;
-    users[userIndex].profileImage = imageData;
-    localStorage.setItem('accountStorage', JSON.stringify(users));
+    users[userIndex].profileImage = imageData; //Add the picture to that searched user
+    localStorage.setItem('accountStorage', JSON.stringify(users)); //Save it to user localstorage
     localStorage.setItem('saveLoggedInUser',JSON.stringify(users[userIndex]));
   };
-   reader.readAsDataURL(file);
+   reader.readAsDataURL(file);//This open the file (image/picture) and covert it to string
   });
 }uploadProfilePic();
+
+
 //reload remain user display just like in the cart and counter
 const loggedInUser = document.getElementById('user-to-log');
 const mobileLoggedInUser = document.getElementById('mobile-user-to-log');
@@ -552,6 +582,8 @@ if (savedUser) {
     profilePic.src = savedUser.profileImage;
 }
 }
+
+
 //Carousel of the upper panel items on mobile viewport
 //This function is different from when on desktop viewport
 window.__mobileUpperSliderActive = false;
