@@ -448,7 +448,7 @@ li{
        overflow-y: scroll;
     }
     .news-menu-cp-head{
-        font-size: 0.9em;
+        font-size: 1.1rem;
         align-self: flex-start;
         font-weight: bold;
         color: #4682b4;
@@ -459,11 +459,11 @@ li{
     }
     .news-menu-cp-title{
         margin: 2% auto;
-        font-size: 0.8em;
+        font-size: 1rem;
         
     }
     .news-menu-cp p{
-        font-size: 0.7em;
+        font-size: 0.85rem;
         margin: 0;
     }
     .news-menu-cp img{
@@ -480,7 +480,7 @@ li{
         margin: 5% auto 0% auto;
     }
     .about-us-menu-cp p{
-        font-size: 0.7em;
+        font-size: 0.85rem;
         margin: 0;
     }
     .about-us-menu-cp p:nth-child(2){
@@ -499,17 +499,18 @@ li{
         padding-bottom: 5%;
     }
     .question-hidden h2{
-        font-size: 0.8em;
+        font-size: 1rem;
         margin: 5% 0% 0% 0%;
         padding: 0%;
     }
      .question-hidden p{
-        font-size: 0.7em;
+        font-size: 0.85rem;
         margin: 2% 0% 0% 0%;
         padding: 0;
      }
      .question-hidden p span{
         font-weight: bolder;
+        font-size: 0.9rem;
      }
 }
 .mobile-header-cart-tab{
