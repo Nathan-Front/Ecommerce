@@ -160,7 +160,7 @@ li{
         align-items: center;
         justify-items: center;
         background-color: #87ceeb;
-        padding: 1% 0%;
+        padding: 2% 0%;
     }
     .top-panel-cp img{
         width: 4.5vw;
@@ -1013,17 +1013,17 @@ li{
     }
     .logged-in-user-info-panel p{
         font-size: clamp(1.2rem, 3vw, 1.5rem);
-        margin: 2% 0% 0% 0%;
+        margin: 5% 0% 0% 0%;
         color: black;
     }
     .logged-in-user-name{
-        font-size: clamp(2.5rem, 5vw, 6rem);
+        font-size: clamp(1.5rem, 2vw, 4rem);
         margin: 0;
         color: black;
     }
     .logout-button{
         width: clamp(10rem, 10vw, 13rem);
-        margin: 3% 0% 0% 0%;
+        margin: 5% 0% 0% 0%;
     }
 }
 @media only screen and (max-width: 550px){

@@ -24,7 +24,6 @@ function enableMobile() {
 
     const homeItemBtn = document.createElement('button');
     homeItemBtn.className = 'cpHomeBtn';
-
     //For adding the elements during mobile viewport        
     if (!titlePanel.querySelector('.cpHomeBtn')) {
       titlePanel.prepend(homeItemBtn);
@@ -55,9 +54,9 @@ function enableMobile() {
       burgerOpen.style.display = 'none';  
       burgerLinks.classList.add("burger-links");
       coverPage.style.display = 'block';
-      // Always prepend home button again (safe)
+      //Always prepend home button again (safe)
       titlePanel.prepend(homeItemBtn);
-      // Add close button
+      //Add close button
       burgerClose.style.display = "flex";
       titlePanel.appendChild(burgerClose);
       //Stop scrolling of the main page even after opening a page on top of it
@@ -72,9 +71,9 @@ function enableMobile() {
         if (titlePanel.contains(burgerClose)) {
             titlePanel.removeChild(burgerClose);
         }
-        // Always add home button back
+        //Always add home button back
         titlePanel.prepend(homeItemBtn);
-        // Show burger open button again
+        //Show burger open button again
         burgerOpen.style.display = "flex";
         document.body.classList.remove("no-scroll");
     };
@@ -85,15 +84,15 @@ function enableDesktop() {
     window.__desktopEnabled = true;
     window.__mobileEnabled = false;
 
-    // Remove mobile classes
+    //Remove mobile classes
     burgerLinks.classList.remove("burger-links");
     document.body.classList.remove("no-scroll");
 
-    // Remove burger buttons if present
+    //Remove burger buttons if present
     if (titlePanel.contains(burgerOpen)) titlePanel.removeChild(burgerOpen);
     if (titlePanel.contains(burgerClose)) titlePanel.removeChild(burgerClose);
 
-    // Remove home button safely
+    //Remove home button safely
     const homeBtn = titlePanel.querySelector(".cpHomeBtn");
     if (homeBtn) homeBtn.remove();
 }
@@ -175,21 +174,6 @@ document.addEventListener("DOMContentLoaded", () =>{
           document.body.classList.remove('no-scroll');
           coverPage.style.display = 'none';
       });
-
-      //For the carousel at the very top of the page. Viewport 541px and above
-      if(window.innerWidth > 540) return;
-      const upperPanel1 = document.querySelector('.main-panel-upper-first');
-      const upperPanel2 = document.querySelector('.main-panel-upper-second');
-      const upperPanel3 = document.querySelector('.main-panel-upper-third');
-      upperPanel1.addEventListener('click', () =>{
-        alert('clicked first panel. Content under planning');
-      });
-      upperPanel2.addEventListener('click', () =>{
-          alert('clicked second panel. Content under planning');
-      });
-      upperPanel3.addEventListener('click', () =>{
-        alert('clicked third panel. Content under planning');
-      });
         
       //For the carousel at the very top of the page during mobile viewport
       if(window.innerWidth <= 430){
@@ -210,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () =>{
           contactContainer.removeChild(footerContainer);
           return;
         }
-      }                  
+      }                
 });
 
 

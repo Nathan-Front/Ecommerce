@@ -1,11 +1,35 @@
+//For the header hide/display on scroll
+var lastScrollTop = 0;
+const header = document.getElementById('display-on-scroll');
+//Allow only one update per animation frame (~16ms).
+//This prevents the expensive logic from running repeatedly.
+let ticking = false;
+window.addEventListener('scroll', () => {
+    if (window.innerWidth <= 430) return;
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            if (scrollTop > lastScrollTop) {
+                header.style.top = '-10%'; //scroll down → hide
+            } else {
+                header.style.top = '0%';   //scroll up → show
+            }
+            lastScrollTop = scrollTop; //Show the header
+            //Update header position. Allow the next update
+            ticking = false;
+        });
+        //Ignore the event. Prevents overload.
+        //From scroll handler took 249ms → only one update per animation frame (~16ms).
+        ticking = true;
+    }
+});
+
 
 let CartItem = [];
 let counterForCart = 0;
 let counterForItemQty = 0;
 const cartItemCounter = document.getElementById("added-to-cart");
 const cartElement = document.getElementById('checked-out-item');
-
-
 //For adding item into the cart
 function addingToCart(name, productsToId) {
     //Get the data from sessionStorage for comparison
@@ -152,9 +176,7 @@ document.getElementById('clothing-container-shoes').addEventListener('click', fu
 
 //For cart counter
 function updateCounter() {
-
     let counterFromStorage = JSON.parse(sessionStorage.getItem('cartCounter'))||[];
-
     if(sessionStorage.getItem('cartCounter') !== ""){
        cartItemCounter.textContent = counterFromStorage;
        const saveBack = cartItemCounter.textContent;
@@ -349,24 +371,9 @@ window.onload = function(){
         });
     });
 }
-//USe data- and target the related item with Id name same as the data-target value
-document.querySelectorAll('button[data-target]').forEach(function (el){
-    el.addEventListener('click', () =>{
-        //Get list of the items to be displayed one by one
-        let newsContainer = document.getElementsByClassName('new-item-panel');
-        for(let i = 0; i < newsContainer.length; i++){
-            newsContainer[i].style.display = 'none';
-        }
-        //Target the Id name with the same data-target value of the clicked button
-        document.getElementById(el.getAttribute('data-target')).style.display = "flex";
-    });
-}); 
 
-//just popups for other buttons and links when clicked
-function upperSlideContentsBtn(){
-    //during Desktop.tablet viewport
-    const upperPanelBtns = document.querySelectorAll('.upper-carousel');
-    //During mobile viewport
+document.addEventListener('DOMContentLoaded', ()=>{
+    //For dropdown contents of category container
     const clotheCategory = document.getElementById('clothe-category');
     const shoesCategory = document.getElementById('shoes-category');
     const offerCategory = document.getElementById('offer-category');
@@ -374,17 +381,6 @@ function upperSlideContentsBtn(){
     const clotheDaily = document.getElementById('clothe-daily');
     const shoesDaily = document.getElementById('shoes-daily');
 
-    document.addEventListener('DOMContentLoaded', () =>{
-    upperPanelBtns.forEach((btn) =>{
-        btn.addEventListener('click', ()=>{
-            const panel = btn.closest('.upper-carousel');
-            const upperPanelTitle = panel.querySelector('.main-panel-upper-h2').textContent;
-            alert('Link to ' + upperPanelTitle + ' page');
-        });
-    });
-        
-
-    
     clotheCategory.addEventListener('click', () =>{
         alert('Link to Clothes category page');
     });
@@ -403,52 +399,34 @@ function upperSlideContentsBtn(){
     shoesDaily.addEventListener('click', () =>{
         alert('Link to Shoes daily offer page');
     });
-    });
-}upperSlideContentsBtn();
-//Tried imlpementing loop for the buttons on the lower panel items
-document.addEventListener('DOMContentLoaded', () =>{
-    let lowerPanelBtn = document.querySelectorAll('.best-offer-button');
-    lowerPanelBtn.forEach(function (Btn){
-        Btn.addEventListener('click', () =>{
-             alert('Link to ' + Btn.querySelector('span').textContent + ' page');
+
+    //USe data- and target the related item with Id name same as the data-target value
+    document.querySelectorAll('button[data-target]').forEach(function (el){
+        el.addEventListener('click', () =>{
+            //Get list of the items to be displayed one by one
+            let newsContainer = document.getElementsByClassName('new-item-panel');
+            for(let i = 0; i < newsContainer.length; i++){
+                newsContainer[i].style.display = 'none';
+            }
+            //Target the Id name with the same data-target value of the clicked button
+            document.getElementById(el.getAttribute('data-target')).style.display = "flex";
         });
-    });
-
-    let lowerPanelCardLinks = document.querySelectorAll('.lower-panel-item-card-links');
-    lowerPanelCardLinks.forEach(function (aTag){
-        aTag.addEventListener('click', ()=>{
-            alert('Link to ' + aTag.textContent + ' page');
-        });
-    });
-
-    //This is for the links of footer
-    let footerLnks = document.querySelectorAll('.footer-links');
-    footerLnks.forEach(function (foot){
-        foot.addEventListener('click', ()=>{
-            alert('Link to ' + foot.textContent + ' page');
-        });
-    });
-})
-
-//loading="lazy" JS style for images
-document.addEventListener('DOMContentLoaded', ()=>{
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    const crossIntersection = new IntersectionObserver(crossIntersectionHandler, {
-    rootMargin: "0px 0px 150px 0px", // preload 150px before image enters. It will start displaying imgages when scrolling gets near that value
-    threshold: 0                    // fire early
-    });
-
-    function crossIntersectionHandler(entries, observer){
-        for(const entry of entries){
-            if(entry.intersectionRatio > 0){
-                entry.target.src = entry.target.dataset.src;
-                //entry.target.src = entry.target.getAttribute('data-src'); //This line is the same as the code just above it
-            }   
-        }
-    }
-    lazyImages.forEach(img => crossIntersection.observe(img));
+    }); 
 });
 
+
+
+//For the animation of the upperpanel slider
+function initialSlide(){
+    if(upperSlides.length > 0){
+        //Add this class name to the current container on display
+        upperSlides[upperCarouselIndex].classList.add('upper-display');
+        //Automatically go to next slide after 7 seconds
+        if(window.innerWidth > 430){
+            intervalId = setInterval(nextSlide, 7000);
+        }      
+    }
+}
 //Start of display index
 let upperCarouselIndex = 0;
 //All container with this class name
@@ -458,17 +436,38 @@ let intervalId = null;
 //Call the function 
 document.addEventListener('DOMContentLoaded', initialSlide); 
 
-function initialSlide(){
-    if(upperSlides.length > 0){
-        //Add this class name to the current container on display
-        upperSlides[upperCarouselIndex].classList.add('upper-display');
-        //Automatically go to next slide after 7 seconds
-        if(window.innerWidth > 430){
-            intervalId = setInterval(nextSlide, 7000);
-        }
-        
-    }
-}
+
+//just popups for upperpanel slider
+function upperSlideContentsBtn(){
+
+    //during Desktop/tablet viewport
+    const upperPanelBtns = document.querySelectorAll('.upper-carousel-button');
+    //during mobile viewport
+    const mobileUpperPanelBtns = document.querySelectorAll('.upper-carousel');
+    document.addEventListener('DOMContentLoaded', () =>{
+        if(window.innerWidth <= 430){
+            //For mobile viewport
+            mobileUpperPanelBtns.forEach((btn) =>{
+                btn.addEventListener('click', ()=>{
+                    const panel = btn.closest('.upper-carousel');
+                    const upperPanelTitle = panel.querySelector('.main-panel-upper-h2').textContent;            
+                    alert('Link to ' + upperPanelTitle + ' page');
+                });
+            });
+        }else{
+        //For desktop/tablet viewport
+          upperPanelBtns.forEach((btn) =>{
+                btn.addEventListener('click', ()=>{
+                    const panel = btn.closest('.upper-carousel');
+                    const upperPanelTitle = panel.querySelector('.main-panel-upper-h2').textContent;            
+                    alert('Link to ' + upperPanelTitle + ' page');
+                });
+            });
+        }    
+    });
+}upperSlideContentsBtn();
+
+
 function showSlide(index){
     //If next button clicked and reached and pass the last slide, return to 1st slide
     if(index >= upperSlides.length){
@@ -639,30 +638,52 @@ carouselItemContainerShoes.addEventListener('mousedown', dragStart);
     });
  });
  }
-
 });
 
-var lastScrollTop = 0;
-const header = document.getElementById('display-on-scroll');
-//Allow only one update per animation frame (~16ms).
-//This prevents the expensive logic from running repeatedly.
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (window.innerWidth <= 430) return;
-    let scrollTop = window.scrollY || document.documentElement.scrollTop;
-    if (!ticking) {
-        window.requestAnimationFrame(() => {
-            if (scrollTop > lastScrollTop) {
-                header.style.top = '-10%'; // scroll down → hide
-            } else {
-                header.style.top = '0%';   // scroll up → show
-            }
-            lastScrollTop = scrollTop; //Show the header
-            //Update header position. Allow the next update
-            ticking = false;
+
+//For the items in lower panel
+document.addEventListener('DOMContentLoaded', () =>{
+    let lowerPanelBtn = document.querySelectorAll('.best-offer-button');
+    lowerPanelBtn.forEach(function (Btn){
+        Btn.addEventListener('click', () =>{
+             alert('Link to ' + Btn.querySelector('span').textContent + ' page');
         });
-        //Ignore the event. Prevents overload.
-        //From scroll handler took 249ms → only one update per animation frame (~16ms).
-        ticking = true;
+    });
+
+    let lowerPanelCardLinks = document.querySelectorAll('.lower-panel-item-card-links');
+    lowerPanelCardLinks.forEach(function (aTag){
+        aTag.addEventListener('click', ()=>{
+            alert('Link to ' + aTag.textContent + ' page');
+        });
+    });
+
+    //This is for the links of footer
+    let footerLnks = document.querySelectorAll('.footer-links');
+    footerLnks.forEach(function (foot){
+        foot.addEventListener('click', ()=>{
+            alert('Link to ' + foot.textContent + ' page');
+        });
+    });
+})
+
+
+//loading="lazy" JS style for images
+document.addEventListener('DOMContentLoaded', ()=>{
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    const crossIntersection = new IntersectionObserver(crossIntersectionHandler, {
+    rootMargin: "0px 0px 150px 0px", //preload 150px before image enters. It will start displaying imgages when scrolling gets near that value
+    threshold: 0                    //fire early
+    });
+
+    function crossIntersectionHandler(entries, observer){
+        for(const entry of entries){
+            if(entry.intersectionRatio > 0){
+                entry.target.src = entry.target.dataset.src;
+                //entry.target.src = entry.target.getAttribute('data-src'); //This line is the same as the code just above it
+            }   
+        }
     }
+    lazyImages.forEach(img => crossIntersection.observe(img));
 });
+
+
