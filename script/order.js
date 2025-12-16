@@ -239,7 +239,7 @@ if(!payment) return;
         //Check if user is logged in before displaying total payment
         if(loggedInUser.textContent === 'Guest' || loggedInUser.textContent === "" || loggedInUser.textContent === null){
             cartContentEmpty.classList.remove('navActive');
-            loginAccountPage.classList.add('login-account-slider');
+            loginAccountPage.classList.add('log-in');
             coverPage.style.display = 'flex'; 
             document.body.classList.add("no-scroll"); 
         }else{
