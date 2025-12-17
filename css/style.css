@@ -103,7 +103,7 @@ li{
 .item-to-cart-checkout:hover{
     cursor: pointer;
 }
-.item-to-cart-checkout span{
+.cart-checkout-qty{
     position: absolute;
     top: -0.3rem;
     right: 0.25rem;
@@ -2760,7 +2760,8 @@ left: 0;
     cursor: pointer;
 }
 .lower-panel-item-card-links,
-#forgot-password{
+#forgot-password,
+#mobile-forgot-password{
     color: #0000EE;
 }
 .lower-panel-item-card-links:hover,

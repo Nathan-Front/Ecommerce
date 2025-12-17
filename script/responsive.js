@@ -16,6 +16,7 @@ function mobileDesktopInit() {
         enableDesktop();
     }
 }
+
 function enableMobile() {
     //Initializer for mobile viewport
     if (window.__mobileEnabled) return; 
@@ -79,6 +80,7 @@ function enableMobile() {
     };
     }
 }
+
 function enableDesktop() {
     if (window.__desktopEnabled) return;
     window.__desktopEnabled = true;
@@ -96,6 +98,7 @@ function enableDesktop() {
     const homeBtn = titlePanel.querySelector(".cpHomeBtn");
     if (homeBtn) homeBtn.remove();
 }
+
 
 const loginPage = document.getElementById('login-page');
 const closeLoginPage = document.getElementById('close-login-page');
@@ -1066,8 +1069,8 @@ function backToTop(){
   const newsMenuBtn1 = document.getElementById('newsMenuBtn1');
   const newsMenuBtn2 = document.getElementById('newsMenuBtn2');
   const newsMenuBtn3 = document.getElementById('newsMenuBtn3');
-  let newsMenuArray = [newsMenuBtn1, newsMenuBtn2,newsMenuBtn3];
-  let newsMenuArray2 = document.querySelectorAll('.menu-buttons');
+  //let newsMenuArray = [newsMenuBtn1, newsMenuBtn2,newsMenuBtn3];
+  let newsMenuArray = document.querySelectorAll('.menu-buttons');
   const menuDiv = document.createElement('div');
   menuDiv.className = 'menu-div-pop';
 
@@ -1083,7 +1086,7 @@ function backToTop(){
   //Works intandem with the code at the bottom
   menuDiv.addEventListener('click', (e) => {
     const dropQuestionsBtn = e.target.closest('#drop-questions');
-    if (dropQuestionsBtn) {
+    if(dropQuestionsBtn){
             const dropAnswers = menuDiv.querySelector('#questions');
             if (dropAnswers) {
                     dropAnswers.style.display = 
@@ -1109,9 +1112,9 @@ function backToTop(){
   });
         
   //Display content when burgerOpen button is clicked 
-  for(let i = 0; i < newsMenuArray2.length; i++){
-    newsMenuArray2[i].addEventListener('click', () => {  
-      if(newsMenuArray2[i].textContent === 'News'){ 
+  for(let i = 0; i < newsMenuArray.length; i++){
+    newsMenuArray[i].addEventListener('click', () => {  
+      if(newsMenuArray[i].textContent === 'News'){ 
                       
       menuDiv.innerHTML =`
       <span class="news-menu-cp-head">News</span>
@@ -1136,7 +1139,7 @@ function backToTop(){
               <img src="images/upper-panel/vecteezy_antique-table-holds-old-literature-rustic-elegance_24642428.jpg" alt="Creative styles">
       </div>
       `;          
-      }else if(newsMenuArray2[i].textContent ==='About us'){
+      }else if(newsMenuArray[i].textContent ==='About us'){
       menuDiv.innerHTML = `
       <span class="news-menu-cp-head">About us</span>
       <div class="about-us-menu-cp">
@@ -1156,7 +1159,7 @@ function backToTop(){
               </div>
       </div>
       `;
-      }else if(newsMenuArray2[i].textContent === 'FAQs'){
+      }else if(newsMenuArray[i].textContent === 'FAQs'){
       menuDiv.innerHTML = `
       <div class="drop-question-container">
               <span class="news-menu-cp-head" id="drop-questions">Most asked questions</span>

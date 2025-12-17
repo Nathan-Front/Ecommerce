@@ -97,131 +97,6 @@ function addingToCart(name, productsToId) {
     updateCartContent();
     }
 
-//This is when the page is reloaded or refreshed manually. To keep item in the cart and other display
-function itemFromStorageOnReload(){
-
-    let cartStorage = JSON.parse(sessionStorage.getItem('itemFromCart'))||[];
-    //To show/hide checkout button
-    if(cartStorage.length === 0){      
-        sessionStorage.removeItem('itemFromCart');
-        cartElement.innerHTML = "";
-    //This is needed or else item in the cart will be doubled when reloading/refreshing     
-    }else{
-        cartElement.innerHTML = "";
-    }
-    //Loop the array of sessionStorage 
-    cartStorage.forEach((item, index) =>{
-        const li = document.createElement('li');
-        li.className = 'cart-content-item';
-       // li.setAttribute('data-item-id', `${item.StoredId}`);
-        li.id = 'for-update-cart';
-        li.innerHTML = `
-         <div class="item-descript-cart">
-            <p>Item name:<span> ${item.name}</span></p>
-            <p>Item price:<span id="item-price">$ ${item.price}</span></p>
-            <p>seller:<span>ABC comp.</span></p>
-            <img src="${item.image}" alt="Product image">
-            <p>Size:<span class="selected-size">${item.size}</span></p>
-            <p>Quantity:<span> ${item.quantity}</span></p>
-            <p>Total:<span>$ ${item.total}</span></p>                       
-         </div>
-         <div class="item-cart-button-cart" id="cart-delete-button">
-                            <button onclick="deleteItemFromSession(${item.StoredId})"  data-item-id="${item.StoredId}" class="delete-item-from-cart">Delete</button>
-        </div>
-        `;
-        //Newly added item to be always at the top
-        cartElement.prepend(li);
-        //cartElement.appendChild(li);//Use this if the checkout button has a fixed position
-    }); 
-}
-
-//For each item quantity selection
-//For clothing category
-document.getElementById('clothing-container').addEventListener('click', function(event) {
-    const clickedElement = event.target; 
-    if(clickedElement.classList.contains('counter-add') || clickedElement.classList.contains('counter-minus')){
-        const itemCON = clickedElement.closest('.list-of-items');
-        const counterElm = itemCON.querySelector('.item-count');
-        let cnt = parseInt(counterElm.textContent);
-        if(clickedElement.classList.contains('counter-add')){
-            //counterForItemQty++;
-            cnt++;
-        }else if(clickedElement.classList.contains('counter-minus')){
-            if(cnt > 0){
-                //counterForItemQty--;
-                cnt--;
-            }else{return 0;}
-        }counterElm.textContent = cnt;
-    }
-});
-//For shoe category
-document.getElementById('clothing-container-shoes').addEventListener('click', function(event) {
-    const clickedElement = event.target; 
-    if(clickedElement.classList.contains('counter-add') || clickedElement.classList.contains('counter-minus')){
-        const itemCON = clickedElement.closest('.list-of-items');
-        const counterElm = itemCON.querySelector('.item-count');
-        let cnt = parseInt(counterElm.textContent);
-        if(clickedElement.classList.contains('counter-add')){
-            //counterForItemQty++;
-            cnt++;
-        }else if(clickedElement.classList.contains('counter-minus')){
-            if(cnt > 0){
-                //counterForItemQty--;
-                cnt--;
-            }else{return 0;}
-        }counterElm.textContent = cnt;
-    }
-});
-
-
-//For cart counter
-function updateCounter() {
-    let counterFromStorage = JSON.parse(sessionStorage.getItem('cartCounter'))||[];
-    if(sessionStorage.getItem('cartCounter') !== ""){
-       cartItemCounter.textContent = counterFromStorage;
-       const saveBack = cartItemCounter.textContent;
-       sessionStorage.setItem('cartCounter', JSON.stringify(saveBack));   
-    }else{
-       return;
-    }      
-    updateCartContent();  
-}
-
-//For cart counter reload page. When page is reloaded/refreshed keep the current counter as is
-document.addEventListener('DOMContentLoaded', () => {
-    let cartReload = JSON.parse(sessionStorage.getItem('cartCounter'));
-    if(cartReload !== null && cartReload !== ""){
-        updateCounter(cartReload.length);
-    }else{
-        //To make sure the sessionStorage will be cleared out if counter is 0/sessionstorage is ""/[]
-        sessionStorage.clear('cartCounter');
-    } 
-});
-      
-//For deleting item
-function deleteItemFromSession(itemId){
-
-    let counterFromStorage = JSON.parse(sessionStorage.getItem('cartCounter'));    
-    if (counterFromStorage > 0) {
-        //Search specific ID of item to be filtered out
-        let cart = JSON.parse(sessionStorage.getItem('itemFromCart')||'[]');
-        //Filter that specific ID out while the rest will be stored back to the sessionStorage
-        cart = cart.filter(item => item.StoredId !== itemId);
-        sessionStorage.setItem('itemFromCart', JSON.stringify(cart));
-        //Decrease the counter in the sessionStorage and update it
-        counterFromStorage--;
-        sessionStorage.setItem("cartCounter", counterFromStorage);
-        //use to reload/refreshed everytime item is deleted from cart. 
-        //Use to update the cart counter in sessionstorage to be able to add that deleted item again if wanted
-        //location.reload();    
-    } else {
-        return;
-    }
-    updateCounter();
-    //Pass the updated sessionStorage to remove item from the cart if delete button was clicked
-    updateCartContent();
-} 
-
 
 //To checkout payment
 document.addEventListener('DOMContentLoaded', () =>{
@@ -238,7 +113,7 @@ if(!payment) return;
         }
         //Check if user is logged in before displaying total payment
         if(loggedInUser.textContent === 'Guest' || loggedInUser.textContent === "" || loggedInUser.textContent === null){
-            alert('Login is needed');
+            alert('Yoou need to login');
             if(window.innerWidth > 430){return;}
             cartContentEmpty.classList.remove('navActive');
             loginPage.classList.add('log-in');
@@ -267,7 +142,7 @@ function updateCartContent(itemId){
     }
     //Loop the array of sessionStorage     
     cartStore.forEach((item, index) =>{
-        const itemQty = document.getElementsByClassName(".item-count");
+        //const itemQty = document.getElementsByClassName(".item-count");
         const li = document.createElement('li');
         li.className = 'cart-content-item';
       //  li.setAttribute('data-item-id', `${item.StoredId}`);
@@ -283,16 +158,70 @@ function updateCartContent(itemId){
             <p>Total:<span>$ ${item.total}</span></p>                       
          </div>
          <div class="item-cart-button-cart" id="cart-delete-button">
-                            <button onclick="deleteItemFromSession(${item.StoredId})" data-item-id='${item.StoredId}' class="delete-item-from-cart">Delete</button>
-        </div>
+            <button onclick="deleteItemFromSession(${item.StoredId})" data-item-id='${item.StoredId}' class="delete-item-from-cart">Delete</button>
+         </div>
         `;
         //Newly added item to be always at the top
         cartElement.prepend(li);
         //cartElement.appendChild(li);//Use this if the checkout button has a fixed position
     });  
 }
-//When web is reloaded/refreshed
-document.addEventListener('DOMContentLoaded', itemFromStorageOnReload);
+
+
+function attachCounterHandler(containerId){ //Get the string being passed
+    const container = document.getElementById(containerId); //Get the data being passed
+    if(!container){return;} //If no such Id do nothing
+
+    container.addEventListener('click', (event) => {
+        const btn = event.target; //Actual element clicked
+        if(!btn.classList.contains('counter-add') && !btn.classList.contains('counter-minus')){return;}  //If these element not clicked, do nothing
+        const itemCON = btn.closest('.list-of-items'); //Search DOM of parent having this class nearest to it
+        if(!itemCON){return;}  //If none do nothing
+        const counterElm = itemCON.querySelector('.item-count'); //Counter selected item
+        let cnt = parseInt(counterElm.textContent, 10) || 0; //Read current count *Base-10 number system
+        if(btn.classList.contains('counter-add')) { //If plus clicked, increment
+            cnt++;
+        }else if (btn.classList.contains('counter-minus') && cnt > 0) { //If minus is clicked, decrement
+            cnt--;
+        }
+
+        counterElm.textContent = cnt; //Display current item selected counter
+    });
+}
+attachCounterHandler('clothing-container'); //String equivalent to the Id of the container of clothing carousel
+attachCounterHandler('clothing-container-shoes'); //String equivalent to the Id for the container of shoes carousel
+
+
+function updateCounter() {
+    const storedCounter = sessionStorage.getItem('cartCounter');
+    if(storedCounter === null){return;}
+    const counter = JSON.parse(storedCounter) ?? 0; //Replace null or undefined with zero
+    cartItemCounter.textContent = counter;
+    sessionStorage.setItem('cartCounter', JSON.stringify(counter));
+    updateCartContent();
+}
+document.addEventListener('DOMContentLoaded', updateCounter); //This is needed here unlike the code of updateCartContent
+      
+
+//For deleting item
+function deleteItemFromSession(itemId){
+    let counterFromStorage = JSON.parse(sessionStorage.getItem('cartCounter'));    
+    if (counterFromStorage > 0) {
+        //Search specific ID of item to be filtered out
+        let cart = JSON.parse(sessionStorage.getItem('itemFromCart')||'[]');
+        //Filter that specific ID out while the rest will be stored back to the sessionStorage
+        cart = cart.filter(item => item.StoredId !== itemId);
+        sessionStorage.setItem('itemFromCart', JSON.stringify(cart));
+        //Decrease the counter in the sessionStorage and update it
+        counterFromStorage--;
+        sessionStorage.setItem("cartCounter", counterFromStorage);  
+    } else {
+        return;
+    }
+    //Pass the updated sessionStorage to remove item from the cart if delete button was clicked
+    updateCounter();
+    updateCartContent();
+} 
 
 
 //Declare globally. These are also being used in responsive.js file
@@ -351,57 +280,26 @@ document.addEventListener('DOMContentLoaded', () =>{
     if(closeCart){
         cartContentEmpty.classList.remove('navActive');
         coverPage.style.display = 'none';
-        document.body.classList.remove("no-scroll");
-        
-        let cartCounter = JSON.parse(sessionStorage.getItem('cartCounter'))||[];
-        if(cartCounter <= 0){
-            cartItemCounter.textContent = '0';
-        }
+        document.body.classList.remove("no-scroll");  
+        //let cartCounter = JSON.parse(sessionStorage.getItem('cartCounter'))||[];
+        //if(cartCounter <= 0){
+           // cartItemCounter.textContent = '0';
+        //}
     }
     });  
 });
 
-//Function for the dropdown of News button
-window.onload = function(){
-    //Get all buttons
+
+document.addEventListener('DOMContentLoaded', ()=>{
+    //Function for the news dropdown buttons
     const newsBtn = document.querySelectorAll('.new-item-display-button');
     newsBtn.forEach(function (btnEl){
-        btnEl.addEventListener('click', () => {
+        btnEl.addEventListener('click', (e) => {
         //Remove the newsItemActive class name and add it to the next clicked button
         document.querySelector('.newsItemActive').classList.remove('newsItemActive');
         btnEl.classList.add('newsItemActive');
         });
     });
-}
-
-document.addEventListener('DOMContentLoaded', ()=>{
-    //For dropdown contents of category container
-    const clotheCategory = document.getElementById('clothe-category');
-    const shoesCategory = document.getElementById('shoes-category');
-    const offerCategory = document.getElementById('offer-category');
-    const outdoorCategory = document.getElementById('outdoor-category');
-    const clotheDaily = document.getElementById('clothe-daily');
-    const shoesDaily = document.getElementById('shoes-daily');
-
-    clotheCategory.addEventListener('click', () =>{
-        alert('Link to Clothes category page');
-    });
-    shoesCategory.addEventListener('click', () =>{
-        alert('Link to Shoes category page');
-    });
-    offerCategory.addEventListener('click', () =>{
-        alert('Link to Best Offer category page');
-    });
-    outdoorCategory.addEventListener('click', () =>{
-        alert('Link to Outdoor category page');
-    });
-    clotheDaily.addEventListener('click', () =>{
-        alert('Link to Clothes daily offer page');
-    });
-    shoesDaily.addEventListener('click', () =>{
-        alert('Link to Shoes daily offer page');
-    });
-
     //USe data- and target the related item with Id name same as the data-target value
     document.querySelectorAll('button[data-target]').forEach(function (el){
         el.addEventListener('click', () =>{
@@ -413,11 +311,35 @@ document.addEventListener('DOMContentLoaded', ()=>{
             //Target the Id name with the same data-target value of the clicked button
             document.getElementById(el.getAttribute('data-target')).style.display = "flex";
         });
+    });
+
+    //For dropdown contents of category container
+    const categoryImgBtn = document.querySelectorAll('.category-images');
+    categoryImgBtn.forEach((btn)=>{
+        btn.addEventListener('click', ()=>{
+            const clickedBtn = btn.closest('.category-images');
+            const displayBtnMssg = clickedBtn.querySelector('.dropdown-buttons').textContent;
+            alert('Link to ' + displayBtnMssg + ' page');
+        });
+    });
+
+    const dailyImgBtn = document.querySelectorAll('.daily-images');
+    dailyImgBtn.forEach((btn)=>{
+        btn.addEventListener('click', ()=>{
+            const clickedBtn = btn.closest('.daily-images');
+            const displayBtnMssg = clickedBtn.querySelector('.dropdown-buttons').textContent;
+            alert('Link to ' + displayBtnMssg + ' page');
+        });
     }); 
 });
 
 
-
+//Start of display index
+let upperCarouselIndex = 0;
+//All container with this class name
+const upperSlides = document.querySelectorAll('.upper-carousel');
+//For auto animation slide
+let intervalId = null;
 //For the animation of the upperpanel slider
 function initialSlide(){
     if(upperSlides.length > 0){
@@ -429,19 +351,12 @@ function initialSlide(){
         }      
     }
 }
-//Start of display index
-let upperCarouselIndex = 0;
-//All container with this class name
-const upperSlides = document.querySelectorAll('.upper-carousel');
-//For auto animation slide
-let intervalId = null;
 //Call the function 
 document.addEventListener('DOMContentLoaded', initialSlide); 
 
 
 //just popups for upperpanel slider
 function upperSlideContentsBtn(){
-
     //during Desktop/tablet viewport
     const upperPanelBtns = document.querySelectorAll('.upper-carousel-button');
     //during mobile viewport
@@ -470,8 +385,9 @@ function upperSlideContentsBtn(){
 }upperSlideContentsBtn();
 
 
+//Upper panel carousel
 function showSlide(index){
-    //If next button clicked and reached and pass the last slide, return to 1st slide
+    //If next button clicked and reached the last slide, return to 1st slide
     if(index >= upperSlides.length){
         upperCarouselIndex = 0;
     //If previsou button clicked and pass 1st slide, display last slide    
@@ -499,6 +415,7 @@ function nextSlide(){
 }
 
 
+//Main panel carousel
 document.addEventListener('DOMContentLoaded', function() {
  //Get the Ul tag containers using its class name. Container for the carousel contents
  const carouselItemContainer = document.querySelector('.owl-carousel');
@@ -550,29 +467,29 @@ document.addEventListener('DOMContentLoaded', function() {
  };
    if(window.innerWidth <= 430){
     carouselItemContainer.removeEventListener('mousedown', dragStart);
- carouselItemContainer.removeEventListener('mousemove', dragging);
- document.removeEventListener('mouseup', dragStop);
- carouselContainer.removeEventListener('mouseenter', () => clearTimeout(timeoutId));
- carouselContainer.removeEventListener('mouseleave', autoPlay);
- //Previous/next button
- arrowBtns.forEach(btn => {
-    btn.removeEventListener('click', () => {
-        carouselItemContainer.scrollLeft += btn.id === 'left' ? -firstItemWidth : firstItemWidth;
+    carouselItemContainer.removeEventListener('mousemove', dragging);
+    document.removeEventListener('mouseup', dragStop);
+    carouselContainer.removeEventListener('mouseenter', () => clearTimeout(timeoutId));
+    carouselContainer.removeEventListener('mouseleave', autoPlay);
+    //Previous/next button
+    arrowBtns.forEach(btn => {
+        btn.removeEventListener('click', () => {
+            carouselItemContainer.scrollLeft += btn.id === 'left' ? -firstItemWidth : firstItemWidth;
+        });
     });
- });
    }else{
- carouselItemContainer.addEventListener('mousedown', dragStart);
- carouselItemContainer.addEventListener('mousemove', dragging);
- document.addEventListener('mouseup', dragStop);
- carouselContainer.addEventListener('mouseenter', () => clearTimeout(timeoutId));
- carouselContainer.addEventListener('mouseleave', autoPlay);
- //Previous/next button
- arrowBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        carouselItemContainer.scrollLeft += btn.id === 'left' ? -firstItemWidth : firstItemWidth;
+    carouselItemContainer.addEventListener('mousedown', dragStart);
+    carouselItemContainer.addEventListener('mousemove', dragging);
+    document.addEventListener('mouseup', dragStop);
+    carouselContainer.addEventListener('mouseenter', () => clearTimeout(timeoutId));
+    carouselContainer.addEventListener('mouseleave', autoPlay);
+    //Previous/next button
+    arrowBtns.forEach(btn => {
+       btn.addEventListener('click', () => {
+           carouselItemContainer.scrollLeft += btn.id === 'left' ? -firstItemWidth : firstItemWidth;
+       });
     });
- });
- }
+    }
 });
    
 document.addEventListener('DOMContentLoaded', function() {
@@ -615,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
  };
  
  if(window.innerWidth <= 430){
-carouselItemContainerShoes.removeEventListener('mousedown', dragStart);
+    carouselItemContainerShoes.removeEventListener('mousedown', dragStart);
     carouselItemContainerShoes.removeEventListener('mousemove', dragging);
     document.removeEventListener('mouseup', dragStop);
     carouselContainerShoes.removeEventListener('mouseenter', () => clearTimeout(timeoutId));
@@ -628,17 +545,17 @@ carouselItemContainerShoes.removeEventListener('mousedown', dragStart);
  });
  }else{
     
-carouselItemContainerShoes.addEventListener('mousedown', dragStart);
- carouselItemContainerShoes.addEventListener('mousemove', dragging);
- document.addEventListener('mouseup', dragStop);
- carouselContainerShoes.addEventListener('mouseenter', () => clearTimeout(timeoutId));
- carouselContainerShoes.addEventListener('mouseleave', autoPlay);
+    carouselItemContainerShoes.addEventListener('mousedown', dragStart);
+    carouselItemContainerShoes.addEventListener('mousemove', dragging);
+    document.addEventListener('mouseup', dragStop);
+    carouselContainerShoes.addEventListener('mouseenter', () => clearTimeout(timeoutId));
+    carouselContainerShoes.addEventListener('mouseleave', autoPlay);
 
- arrowBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        carouselItemContainerShoes.scrollLeft += btn.id === 'left-Shoes' ? -firstItemWidth : firstItemWidth;  
+    arrowBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            carouselItemContainerShoes.scrollLeft += btn.id === 'left-Shoes' ? -firstItemWidth : firstItemWidth;  
+        });
     });
- });
  }
 });
 
