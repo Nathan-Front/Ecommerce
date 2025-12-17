@@ -239,6 +239,7 @@ if(!payment) return;
         //Check if user is logged in before displaying total payment
         if(loggedInUser.textContent === 'Guest' || loggedInUser.textContent === "" || loggedInUser.textContent === null){
             alert('Login is needed');
+            if(window.innerWidth > 430){return;}
             cartContentEmpty.classList.remove('navActive');
             loginPage.classList.add('log-in');
             coverPage.style.display = 'flex'; 

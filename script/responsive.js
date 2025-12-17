@@ -512,6 +512,10 @@ function forgotPassword(){
   forgotPass.addEventListener('click', ()=>{
     alert('Redirect to retrieve new password page.');
   });
+  const mobileForgotPass = document.getElementById('mobile-forgot-password');
+  mobileForgotPass.addEventListener('click', ()=>{
+    alert('Redirect to retrieve new password page.');
+  });
 }forgotPassword();
 
 
